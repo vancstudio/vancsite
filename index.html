@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Van©</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===============================
+   RESET / BASE
+=============================== */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #000;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+/* ===============================
+   HEADER
+=============================== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 70px;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 20;
+  background: rgba(255,255,255,0.9);
+}
+
+.brand img {
+  height: 46px;
+}
+
+.menu {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.menu a {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #111;
+  opacity: 0.8;
+}
+
+.menu a:hover { opacity: 1; }
+
+.ig-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.ig-icon:hover { opacity: 1; }
+
+/* ===============================
+   HERO
+=============================== */
+.scene {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  margin-top: 70px;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  background: url('fondo.jpg') center / cover no-repeat;
+}
+
+.hero-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ===============================
+   SECCIONES
+=============================== */
+.section {
+  min-height: 100vh;
+  padding: 140px 10vw 100px;
+}
+
+#obra.section {
+  padding-top: 80px;
+  padding-bottom: 50px;
+   min-height: auto;
+  padding-top: 80px;
+  padding-bottom: 60px;
+}
+
+.section:nth-of-type(even) {
+  background: #000;
+}
+
+.section h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+  color: #ff2fa4; /* rosa Van */
+}
+
+
+.section p {
+  max-width: 600px;
+  line-height: 1.7;
+  color: rgba(245, 245, 245, 0.8); /* mejor que opacity */
+}
+
+
+/* ===============================
+   BANNER TIENDA
+=============================== */
+.shop-banner {
+  max-width: 1000px;
+  height: 220px;
+  margin: 0 auto 2rem;
+}
+
+.shop-cta {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+}
+
+.shop-cta img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.shop-cta span {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  transform: translateX(-50%);
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: #ff2fa4;
+  pointer-events: none;
+}
+
+/* ===============================
+   OBRA / BIO (layout reutilizado)
+=============================== */
+.obra-intro {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.obra-intro img {
+  max-width: 420px;
+  height: auto;
+  display: block;
+}
+
+/* ===============================
+   VANCOLAGE – HERO VISUAL
+=============================== */
+.vancolage-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+
+  background-image: url('vancolage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
+}
+
+
+/* ===============================
+   PRINTS
+=============================== */
+.prints-temp {
+  max-width: 900px;
+  height: 70vh;
+  margin: 2rem auto;
+  background: url('PisciVan.png') center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prints-overlay {
+  background: rgba(245,245,245,0.75);
+  padding: 1.5rem 2rem;
+}
+
+.prints-overlay p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #ff2fa4;          /* rosa Van */
+  letter-spacing: 0.12em; /* coherente con TIENDA */
+}
+
+
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+@media (max-width: 768px) {
+
+  /* SECCIONES GENERALES */
+  .section {
+    min-height: auto;
+    padding: 90px 6vw 70px;
+  }
+
+  #obra.section {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+
+  /* MENÚ */
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* OBRA / BIO */
+  .obra-intro {
+    grid-template-columns: 1fr;
+  }
+
+  /* BANNER */
+  .shop-banner {
+    height: 180px;
+  }
+
+  /* HERO */
+  .scene {
+    min-height: 60vh;
+  }
+
+  /* VANCOLAGE */
+  .vancolage-section {
+    height: 70vh;
+    min-height: 70vh;
+  }
+
+  /* ===============================
+     BIO – AJUSTE DEFINITIVO
+  =============================== */
+  #bio.section {
+    padding-top: 40px;
+    padding-bottom: 60px;
+  }
+
+  #bio h2 {
+    margin-top: 0;
+  }
+
+  #bio .obra-intro {
+    display: block;
+    text-align: center;
+  }
+
+  #bio .obra-intro img {
+    margin: 0 auto 1.5rem;
+    max-width: 320px;
+  }
+
+  #bio .obra-intro p {
+    margin: 0 auto;
+    max-width: 90%;
+    text-align: center;
+  }
+   /* ===============================
+   BIO – ACERCAR A PRINTS
+=============================== */
+#bio.section {
+  margin-top: -40px;
+ }
+}
+
+/* ===============================
+   BIO – CORRECCIÓN DEFINITIVA MÓVIL
+=============================== */
+@media (max-width: 768px) {
+
+  /* Bio no debe usar grid “editorial” en móvil */
+  #bio .obra-intro {
+    display: block;
+    text-align: center;
+  }
+
+  #bio .obra-intro img {
+    margin: 0 auto 1.5rem;
+    max-width: 320px;
+  }
+
+  #bio .obra-intro p {
+    margin: 0 auto;
+    max-width: 90%;
+    text-align: center;
+  }/* ===============================
+   BIO – CORRECCIÓN DE ESPACIADO
+=============================== */
+#bio.section {
+  padding-top: 80px;     /* antes 140px */
+  padding-bottom: 80px;  /* simetría */
+ }
+}
+
+
+@media (max-width: 480px) {
+
+  .topbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .brand img {
+    height: 64px;
+  }
+
+  .scene {
+    min-height: 55vh;
+  }
+
+  .shop-banner {
+    height: 160px;
+  }
+
+  .vancolage-section {
+    height: 38vh;
+    min-height: 220px;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <img src="vanc-logo.png" alt="Van©">
+  </div>
+
+  <nav class="menu">
+    <a href="#inicio">Inicio</a>
+    <a href="obra.html">Obra</a>
+    <a href="prints.html">Prints</a>
+    <a href="#bio">Bio</a>
+       <!-- STUDIO -->
+  <a href="https://www.instagram.com/reel/DAzDi0AIwZu/?igsh=dWYxcGpyd3dmODcx"
+     target="_blank">
+    Studio
+  </a>
+
+  <!-- INSTAGRAM -->
+      <a href="https://www.instagram.com/p/DPgXu6EjCQw/"
+         target="_blank" 
+         class="ig-icon">IG</a>
+  </nav>
+</header>
+
+<section id="inicio" class="scene">
+  <div class="background"></div>
+  <a href="https://youtu.be/_S-utsm3cQk" target="_blank" class="hero-link"></a>
+</section>
+
+<section id="obra" class="section">
+
+ 
+   
+  <div class="shop-banner">
+    <a href="prints.html" class="shop-cta">
+      <img src="shop-strip.gif" alt="Ir a la tienda">
+      <span>TIENDA</span>
+    </a>
+  </div>
+       <h2>Obra</h2>               
+</section>
+
+<section class="vancolage-section"></section>
+
+<section id="prints" class="section">
+  <h2>Prints</h2>
+  <div class="prints-temp">
+    <div class="prints-overlay">
+      <p>Ediciones limitadas disponibles próximamente.</p>
+    </div>
+  </div>
+</section>
+
+<section id="bio" class="section">
+  <h2>Bio</h2>
+  <div class="obra-intro">
+    <img src="artista.jpg" alt="Van© retrato">
+    <p>
+      Van© es un proyecto artístico contemporáneo que explora
+      el diálogo entre cuerpo, memoria, espacio y tecnología.
+      <br><br>
+      La identidad, el proceso y el territorio forman parte
+      del lenguaje visual y conceptual del proyecto.
+    </p>
+  </div>
+</section>
+
+<script src="core.js"></script>
+
+   
+</body>
+</html>
