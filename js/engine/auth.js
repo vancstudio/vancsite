@@ -57,17 +57,20 @@ startGoogleIdentity() {
 
     if (this.login(email)) {
 
-        console.log("Acceso autorizado");
+    console.log("Acceso autorizado");
 
-        const desktop = this.core.getEngine("Desktop");
+    const welcome = this.core.getEngine("Welcome");
 
-        desktop.open();
+    welcome.render();
 
-    } else {
+} else {
 
-        console.log("Usuario no autorizado");
+    console.log("Usuario no autorizado");
 
-    }
+    // No hacer absolutamente nada.
+    // El visitante continúa en la web pública.
+
+}
 
 }
     });

@@ -12,15 +12,16 @@ class WelcomeEngine {
 
     init() {
 
-        this.status = "ONLINE";
-         
-        console.log("Desktop Engine ONLINE");
+    this.status = "ONLINE";
 
-        this.rememberVisit();
+    console.log("Welcome Engine ONLINE");
 
-        this.render();
+    this.rememberVisit();
 
-    }
+    // Ya NO mostramos el Welcome automáticamente.
+    // AuthEngine decidirá cuándo abrirlo.
+
+}
 
     render() {
 
