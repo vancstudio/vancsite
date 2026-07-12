@@ -50,7 +50,7 @@ class WelcomeEngine {
 
                 <h1>VANC OS</h1>
 
-                <h2>Buenos días, ${CONFIG.owner.name}</h2>
+                <h2>Bienvenido a VANC OS</h2>
 
                 <p>${message}</p>
 

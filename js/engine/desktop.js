@@ -14,9 +14,13 @@ class DesktopEngine {
 
     }
 
-   open() {
+  open() {
 
     const panel = document.getElementById("vanc-os");
+
+    const auth = this.core.getEngine("Authentication");
+
+    const user = auth.currentUser();
 
     panel.style.display = "flex";
 
@@ -28,7 +32,7 @@ class DesktopEngine {
 
             <h1>VANC OS</h1>
 
-            <p>${CONFIG.owner.name}</p>
+            <p>${user ? user.name : "Invitado"}</p>
 
         </div>
 
@@ -45,13 +49,14 @@ class DesktopEngine {
             <button id="app-settings">⚙<br>Sistema</button>
 
         </div>
-         <hr>
 
-<button id="back-gallery">
+        <hr>
 
-← Volver a la Galería
+        <button id="back-gallery">
 
-</button>
+            ← Volver a la Galería
+
+        </button>
 
     </div>
 
