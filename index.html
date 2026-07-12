@@ -353,11 +353,64 @@ body {
   }
 }
 
+/* ===============================
+   VANC OS
+=============================== */
 
+#vanc-os {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,.92);
+
+    z-index: 9999;
+}
+.welcome-card{
+
+    width:420px;
+    max-width:90%;
+
+    padding:40px;
+
+    border:1px solid #444;
+
+    text-align:center;
+
+    background:#111;
+
+    border-radius:12px;
+
+}
+
+.welcome-card h1{
+
+    letter-spacing:8px;
+
+    margin-bottom:30px;
+
+}
+
+.welcome-card button{
+
+    margin-top:30px;
+
+    padding:14px 24px;
+
+    cursor:pointer;
+
+}
 </style>
 </head>
 
 <body>
+
+<div id="vanc-os"></div>
+<header class="topbar"></header>
 
 <header class="topbar">
   <div class="brand">
@@ -425,8 +478,21 @@ body {
   </div>
 </section>
 
-<script src="core.js"></script>
+<script src="js/config.js"></script>
 
-   
+<script src="js/storage.js"></script>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script src="js/engine/auth.js"></script>
+
+<script src="js/engine/welcome.js"></script>
+<script src="js/engine/website.js"></script>
+<script src="js/engine/gallery.js"></script>
+<script src="js/engine/desktop.js"></script>
+<script src="js/engine/apps/diary.js"></script>
+<script src="js/engine/memory.js"></script>
+
+<script src="js/core.js"></script>
 </body>
 </html>

@@ -1,0 +1,134 @@
+class DiaryEngine {
+
+    constructor() {
+
+        this.name = "Diary";
+        this.version = "1.1.0";
+        this.status = "OFFLINE";
+
+    }
+
+    init() {
+
+        this.status = "ONLINE";
+
+    }
+
+    open() {
+
+        const panel = document.getElementById("vanc-os");
+
+        const memory = this.core.getEngine("Memory");
+
+        const diary = memory.recall("diary") || {
+
+            text: "",
+
+            updated: null
+
+        };
+
+        let lastUpdate = "Primera entrada";
+
+        if (diary.updated) {
+
+            lastUpdate = new Date(diary.updated).toLocaleString();
+
+        }
+
+        panel.innerHTML = `
+
+        <div class="app">
+
+            <h1>📖 Diario</h1>
+
+            <p><strong>Bienvenido ${CONFIG.owner.name}</strong></p>
+
+            <p>
+                Última edición:
+                ${lastUpdate}
+            </p>
+
+            <textarea
+                id="diary"
+                placeholder="Escribe tus pensamientos..."
+            >${diary.text}</textarea>
+
+            <br><br>
+
+            <button id="saveDiary">
+
+                💾 Guardar
+
+            </button>
+
+            <button id="seedDiary">
+
+                🌱 Convertir en Semilla
+
+            </button>
+
+            <br><br>
+
+            <button id="backDesktop">
+
+                ← Volver al Refugio
+
+            </button>
+
+        </div>
+
+        `;
+
+        // Guardar Diario
+
+        document
+            .getElementById("saveDiary")
+            .addEventListener("click", () => {
+
+                memory.remember("diary", {
+
+                    text: document.getElementById("diary").value,
+
+                    updated: new Date().toISOString()
+
+                });
+
+                const button =
+                    document.getElementById("saveDiary");
+
+                button.textContent = "✅ Guardado";
+
+                setTimeout(() => {
+
+                    button.textContent = "💾 Guardar";
+
+                }, 1500);
+
+            });
+
+        // Volver al Desktop
+
+        document
+            .getElementById("backDesktop")
+            .addEventListener("click", () => {
+
+                this.core
+                    .getEngine("Desktop")
+                    .open();
+
+            });
+
+        // Semillas (todavía no implementado)
+
+        document
+            .getElementById("seedDiary")
+            .addEventListener("click", () => {
+
+                alert("🌱 SeedEngine llegará en el siguiente capítulo.");
+
+            });
+
+    }
+
+}
