@@ -62,21 +62,17 @@ class WelcomeEngine {
             </div>
         `;
 
-      document
-    .getElementById("enter-vanc")
-    .addEventListener("click", () => {
+     document
+.getElementById("enter-vanc")
+.addEventListener("click", () => {
 
-        console.log("CLICK OK");
+    console.log("Iniciando autenticación...");
 
-        this.close();
+    const auth = this.core.getEngine("Authentication");
 
-        const desktop = this.core.getEngine("Desktop");
+    auth.startGoogleIdentity();
 
-        console.log(desktop);
-
-        desktop.open();
-
-    });
+});
 
     }
 

@@ -17,7 +17,7 @@ class AuthEngine {
 
 }
 
-    init() {
+   init() {
 
     this.status = "ONLINE";
 
@@ -25,13 +25,28 @@ class AuthEngine {
 
     console.table(this.users);
 
-    this.startGoogleIdentity();
+    this.user = Storage.load("user");
+
+    // No iniciamos Google automáticamente.
 
 }
 
 startGoogleIdentity() {
 
     console.log("Inicializando Google Identity...");
+
+    // Si ya está autenticado, abrir directamente el Refugio
+    if (this.isLogged()) {
+
+        console.log("Usuario ya autenticado.");
+
+        const desktop = this.core.getEngine("Desktop");
+
+        desktop.open();
+
+        return;
+
+    }
 
     if (typeof google === "undefined") {
 
@@ -45,38 +60,37 @@ startGoogleIdentity() {
 
         client_id: CONFIG.google.clientId,
 
-       callback: (response) => {
+        callback: (response) => {
 
-    console.log("Respuesta de Google:", response);
+            console.log("Respuesta de Google:", response);
 
-    const payload = this.decodeJwt(response.credential);
+            const payload = this.decodeJwt(response.credential);
 
-    console.log("Usuario Google:", payload);
+            console.log("Usuario Google:", payload);
 
-    const email = payload.email;
+            const email = payload.email;
 
-    if (this.login(email)) {
+            if (this.login(email)) {
 
-    console.log("Acceso autorizado");
+                console.log("Acceso autorizado");
 
-    const welcome = this.core.getEngine("Welcome");
+                const desktop = this.core.getEngine("Desktop");
 
-    welcome.render();
+                desktop.open();
 
-} else {
+            } else {
 
-    console.log("Usuario no autorizado");
+                console.log("Usuario no autorizado");
 
-    // No hacer absolutamente nada.
-    // El visitante continúa en la web pública.
+            }
 
-}
+        }
 
-}
     });
-google.accounts.id.prompt();
 
-console.log("Mostrando selector de Google...");
+    google.accounts.id.prompt();
+
+    console.log("Mostrando selector de Google...");
     console.log("Google Identity listo.");
 
 }

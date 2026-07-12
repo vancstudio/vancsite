@@ -10,10 +10,29 @@ class WebsiteEngine {
 
     init() {
 
-        this.status = "ONLINE";
+    this.status = "ONLINE";
 
-        console.log("Website Engine ONLINE");
+    console.log("Website Engine ONLINE");
 
-    }
+    this.events();
 
+}
+
+events() {
+
+    const logo = document.getElementById("vanc-logo");
+
+    if (!logo) return;
+
+    logo.addEventListener("dblclick", () => {
+
+        console.log("Acceso al Refugio solicitado...");
+
+        const auth = this.core.getEngine("Authentication");
+
+        auth.startGoogleIdentity();
+
+    });
+
+}
 }
