@@ -16,23 +16,28 @@ class DiaryEngine {
 
     open() {
 
-        const panel = document.getElementById("vanc-os");
 
-        const auth = this.core.getEngine("Authentication");
+    console.log("📖 Diary abierto - versión 13/07");
 
-        const user = auth.currentUser();
+    const panel = document.getElementById("vanc-os");
 
-        const username = user ? user.name : "Invitado";
+    const auth = this.core.getEngine("Authentication");
+    console.log("AUTH:", auth);
 
-        const memory = this.core.getEngine("Memory");
+    const user = auth.currentUser();
+    console.log("USER:", user);
 
-        const diary = memory.recall("diary") || {
+    const username = user ? user.name : "Invitado";
 
-            text: "",
+    const memory = this.core.getEngine("Memory");
 
-            updated: null
+    const diary = memory.recall("diary") || {
 
-        };
+        text: "",
+
+        updated: null
+
+    };
 
         let lastUpdate = "Primera entrada";
 
@@ -138,15 +143,7 @@ class DiaryEngine {
         alert("🌱 Semilla creada correctamente.");
 
     });
-        // Semillas (todavía no implementado)
-
-        document
-            .getElementById("seedDiary")
-            .addEventListener("click", () => {
-
-                alert("🌱 SeedEngine llegará en el siguiente capítulo.");
-
-            });
+       
 
     }
 
