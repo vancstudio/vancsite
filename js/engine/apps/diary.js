@@ -118,7 +118,19 @@ class DiaryEngine {
 
             });
 
-        // Volver al Desktop
+            // Volver al Refugio
+
+document
+    .getElementById("backDesktop")
+    .addEventListener("click", () => {
+
+        this.core
+            .getEngine("Desktop")
+            .open();
+
+    });
+
+       // Convertir en Semilla
 
         document
     .getElementById("seedDiary")
