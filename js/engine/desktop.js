@@ -40,6 +40,8 @@ class DesktopEngine {
 
             <button id="app-diary">📝<br>Diario</button>
 
+            <button id="app-garden">🌱<br>Jardín</button>
+
             <button id="app-gallery">🖼<br>Galería</button>
 
             <button id="app-ai">🤖<br>IA</button>
@@ -87,7 +89,15 @@ class DesktopEngine {
             }
 
         });
+    document
+        .getElementById("app-garden")
+        .addEventListener("click", () => {
 
+           this.core
+            .getEngine("Garden")
+            .open();
+
+});
     document
         .getElementById("app-gallery")
         .addEventListener("click", () => {

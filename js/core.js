@@ -74,10 +74,13 @@ const core = new Core();
 
 core.load(new AuthEngine());
 core.load(new MemoryEngine());
+core.load(new SeedEngine());
+core.load(new GardenKeeperEngine());
 core.load(new WelcomeEngine());
 core.load(new WebsiteEngine());
 core.load(new GalleryEngine());
 core.load(new DesktopEngine());
+core.load(new GardenEngine());
 core.load(new DiaryEngine());
 
 core.boot();

@@ -18,6 +18,12 @@ class DiaryEngine {
 
         const panel = document.getElementById("vanc-os");
 
+        const auth = this.core.getEngine("Authentication");
+
+        const user = auth.currentUser();
+
+        const username = user ? user.name : "Invitado";
+
         const memory = this.core.getEngine("Memory");
 
         const diary = memory.recall("diary") || {
@@ -42,7 +48,7 @@ class DiaryEngine {
 
             <h1>📖 Diario</h1>
 
-            <p><strong>Bienvenido ${CONFIG.owner.name}</strong></p>
+            <p><strong>Bienvenido ${username}</strong></p>
 
             <p>
                 Última edición:
@@ -110,15 +116,28 @@ class DiaryEngine {
         // Volver al Desktop
 
         document
-            .getElementById("backDesktop")
-            .addEventListener("click", () => {
+    .getElementById("seedDiary")
+    .addEventListener("click", () => {
 
-                this.core
-                    .getEngine("Desktop")
-                    .open();
+        const seed = this.core.getEngine("Seed");
 
-            });
+        const text = document
+            .getElementById("diary")
+            .value;
 
+        if (!text.trim()) {
+
+            alert("Escribe primero una idea.");
+
+            return;
+
+        }
+
+        seed.create(text);
+
+        alert("🌱 Semilla creada correctamente.");
+
+    });
         // Semillas (todavía no implementado)
 
         document
