@@ -36,21 +36,39 @@ class DesktopEngine {
 
         </div>
 
-        <div class="desktop-icons">
+       <div class="desktop-icons">
 
-            <button id="app-diary">📝<br>Diario</button>
+    <button id="app-diary">
+        <span class="icon">📝</span>
+        <span class="label">Diario</span>
+    </button>
 
-            <button id="app-garden">🌱<br>Jardín</button>
+    <button id="app-garden">
+        <span class="icon">🌱</span>
+        <span class="label">Jardín</span>
+    </button>
 
-            <button id="app-gallery">🖼<br>Galería</button>
+    <button id="app-gallery">
+        <span class="icon">🖼️</span>
+        <span class="label">Galería</span>
+    </button>
 
-            <button id="app-ai">🤖<br>IA</button>
+    <button id="app-ai">
+        <span class="icon">🤖</span>
+        <span class="label">IA</span>
+    </button>
 
-            <button id="app-shop">🛒<br>Shop</button>
+    <button id="app-shop">
+        <span class="icon">🛒</span>
+        <span class="label">Tienda</span>
+    </button>
 
-            <button id="app-settings">⚙<br>Sistema</button>
+    <button id="app-settings">
+        <span class="icon">⚙️</span>
+        <span class="label">Sistema</span>
+    </button>
 
-        </div>
+</div>
 
         <hr>
 
