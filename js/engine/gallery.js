@@ -48,20 +48,50 @@ class GalleryEngine {
     }
 
 }
-    getRandomShowcase() {
+   getRandomShowcase() {
 
-        if (this.showcases.length === 0) {
+    if (this.showcases.length === 0) {
 
-            console.warn("⚠️ El Refugio está vacío.");
+        console.warn("⚠️ El Refugio está vacío.");
 
-            return null;
-
-        }
-
-        const index = Math.floor(Math.random() * this.showcases.length);
-
-        return this.showcases[index];
+        return null;
 
     }
+
+    const index = Math.floor(Math.random() * this.showcases.length);
+
+    this.currentShowcase = this.showcases[index];
+
+    console.log("🌿 Escaparate seleccionado:", this.currentShowcase.title);
+
+    return this.currentShowcase;
+
+}
+
+setCurrentShowcase(id) {
+
+    const showcase = this.showcases.find(s => s.id === id);
+
+    if (!showcase) {
+
+        console.warn("❌ Escaparate no encontrado:", id);
+
+        return false;
+
+    }
+
+    this.currentShowcase = showcase;
+
+    console.log("🌿 Escaparate activo:", showcase.title);
+
+    return true;
+
+}
+
+getCurrentShowcase() {
+
+    return this.currentShowcase;
+
+}
 
 }

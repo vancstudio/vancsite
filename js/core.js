@@ -80,15 +80,17 @@ returnToGallery() {
 const core = new Core();
 
 const gallery = new GalleryEngine();
+
 core.load(new AuthEngine());
 core.load(new MemoryEngine());
 core.load(new SeedEngine());
 core.load(new GardenKeeperEngine());
 core.load(new WelcomeEngine());
 
-core.load(gallery);              // ← Primero la galería
+core.load(gallery);
+core.load(new RefugioEngine());   // ← NUEVO
 
-core.load(new ShowcaseEngine()); // ← Después el escaparate
+core.load(new ShowcaseEngine());
 
 core.load(new WebsiteEngine());
 core.load(new DesktopEngine());
