@@ -1,0 +1,37 @@
+[
+    {
+        "id": "welcome",
+
+        "title": "🌿 Desde el Estudio",
+
+        "image": "assets/showcase/welcome.jpg",
+
+        "text": "Las ideas nacen como semillas. Aquí empiezan su camino.",
+
+        "button": "Descubrir →"
+    },
+
+    {
+        "id": "forest",
+
+        "title": "🌳 El Bosque",
+
+        "image": "assets/showcase/forest.jpg",
+
+        "text": "Cada paseo inspira una nueva creación.",
+
+        "button": "Entrar"
+    },
+
+    {
+        "id": "fire",
+
+        "title": "🔥 Después del incendio",
+
+        "image": "assets/showcase/welcome.jpg",
+
+        "text": "Incluso entre las cenizas nacen nuevos proyectos.",
+
+        "button": "Explorar"
+    }
+]

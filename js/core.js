@@ -18,8 +18,17 @@ class Core {
 
     }
 
-    boot() {
+   async boot() {
 
+    for (const engine of this.engines) {
+
+        await engine.init();
+
+        console.log("✅ Engine iniciado:", engine.name);
+
+    }
+
+    console.log("================================");
     console.log("================================");
     console.log(this.system);
     console.log("Versión:", this.version);
@@ -48,9 +57,7 @@ load(engine) {
 
     this.engines.push(engine);
 
-    engine.init();
-
-    console.log("Engine cargado:", engine.name);
+    console.log("Engine registrado:", engine.name);
 
 }
 
@@ -72,15 +79,24 @@ returnToGallery() {
 
 const core = new Core();
 
+const gallery = new GalleryEngine();
 core.load(new AuthEngine());
 core.load(new MemoryEngine());
 core.load(new SeedEngine());
 core.load(new GardenKeeperEngine());
 core.load(new WelcomeEngine());
+
+core.load(gallery);              // ← Primero la galería
+
+core.load(new ShowcaseEngine()); // ← Después el escaparate
+
 core.load(new WebsiteEngine());
-core.load(new GalleryEngine());
 core.load(new DesktopEngine());
 core.load(new GardenEngine());
 core.load(new DiaryEngine());
 
-core.boot();
+(async () => {
+
+    await core.boot();
+
+})();
