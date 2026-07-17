@@ -38,37 +38,30 @@ class ShowcaseEngine {
             return;
         }
 
-        console.log("🎲 Escaparate:", item);
+       console.log("🎲 Escaparate:", item);
 
-        const showcase = document.createElement("div");
+const showcase = document.createElement("div");
 
-        showcase.id = "showcase";
+showcase.id = "showcase";
 
-        showcase.innerHTML = `
-
+showcase.innerHTML = `
 <div class="showcase-card">
 
     <h2>${item.title}</h2>
 
     <div class="showcase-image">
-
-        <img
-            src="${item.image}"
-            alt="${item.title}">
-
+        <img src="${item.image}" alt="${item.title}">
     </div>
 
     <p>${item.text}</p>
 
     <button id="enter-showcase">
-
         ${item.button}
-
     </button>
 
 </div>
-
 `;
+
 
         document.body.appendChild(showcase);
 

@@ -26,6 +26,8 @@ class DesktopEngine {
 
     panel.innerHTML = `
 
+     <div id="window-manager"></div>
+
     <div class="desktop">
 
         <div class="desktop-header">
@@ -50,7 +52,7 @@ class DesktopEngine {
 
     <button id="app-gallery">
         <span class="icon">🖼️</span>
-        <span class="label">Galería</span>
+       <span class="label">Escaparate</span>
     </button>
 
     <button id="app-ai">
@@ -116,14 +118,19 @@ class DesktopEngine {
             .open();
 
 });
-    document
-        .getElementById("app-gallery")
-        .addEventListener("click", () => {
+   document
+    .getElementById("app-gallery")
+    .addEventListener("click", () => {
 
-            console.log("Abrir Gallery");
+        console.log("🖼️ Botón Escaparate pulsado");
 
-        });
+        const manager = this.core.getEngine("ShowcaseManager");
 
+        console.log("Manager:", manager);
+
+        manager.open();
+
+    });
     document
         .getElementById("app-ai")
         .addEventListener("click", () => {

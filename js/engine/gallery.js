@@ -9,6 +9,8 @@ class GalleryEngine {
         // Refugio
         this.showcases = [];
 
+        this.currentShowcase = null;
+
     }
 
     async init() {
@@ -22,6 +24,10 @@ class GalleryEngine {
         const showcase = this.getRandomShowcase();
 
         console.log("🎲 Escaparate elegido:", showcase);
+
+console.table(this.getShowcases());
+
+console.log(this.getShowcase("forest"));
 
     }
 
@@ -93,5 +99,21 @@ getCurrentShowcase() {
     return this.currentShowcase;
 
 }
+getShowcases() {
 
+    return this.showcases;
+
+}
+getShowcase(id) {
+
+    return this.showcases.find(s => s.id === id);
+
+}
+addShowcase(showcase) {
+
+    this.showcases.push(showcase);
+
+    console.log("✅ Escaparate añadido:", showcase.title);
+
+}
 }

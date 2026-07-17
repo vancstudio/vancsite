@@ -568,197 +568,24 @@ body {
 /* ==========================
    MÓVIL
 ========================== */
-
 @media (max-width:768px){
 
-    .desktop{
+    .vanc-window{
 
-        width:100%;
+        top:10px;
 
-        padding:20px;
+        left:10px;
 
-    }
+        right:10px;
 
-    .desktop-icons{
+        width:auto;
 
-        grid-template-columns:repeat(2,1fr);
+        transform:none;
 
-    }
-
-    .desktop-icons button{
-
-        min-height:80px;
-
-        font-size:16px;
+        max-height:95vh;
 
     }
 
-    .desktop-icons .icon{
-
-        font-size:28px;
-
-    }
-
-    .app{
-
-        width:100%;
-
-        padding:20px;
-
-        border-radius:12px;
-
-    }
-
-    .app h1{
-
-        font-size:30px;
-
-    }
-
-    .app p{
-
-        font-size:18px;
-
-    }
-
-    .app textarea{
-
-        min-height:220px;
-
-        font-size:18px;
-
-    }
-
-    .app button{
-
-        width:100%;
-
-        margin:8px 0;
-
-        font-size:17px;
-
-    }
-
-/* ==========================
-   SHOWCASE ENGINE
-========================== */
-
-#showcase{
-
-    position:fixed;
-
-    inset:0;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:rgba(0,0,0,.94);
-
-    z-index:12000;
-
-    opacity:1;
-
-    transition:opacity .6s;
-
-}
-
-#showcase.hide{
-
-    opacity:0;
-
-    pointer-events:none;
-
-}
-
-.showcase-card{
-
-    width:90%;
-
-    max-width:700px;
-
-    text-align:center;
-
-    background:#181818;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    color:white;
-
-    box-shadow:0 0 40px rgba(0,0,0,.5);
-
-}
-
-.showcase-card h2{
-
-    margin-top:0;
-
-    font-size:34px;
-
-}
-
-.showcase-card img{
-
-    width:100%;
-
-    border-radius:14px;
-
-    margin:20px 0;
-
-}
-
-.showcase-card p{
-
-    font-size:20px;
-
-    line-height:1.6;
-
-}
-
-.showcase-card button{
-
-    margin-top:20px;
-
-    padding:14px 28px;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-    border:none;
-
-    border-radius:12px;
-
-}
-.showcase-card{
-
-    width:95%;
-
-    padding:20px;
-
-}
-
-.showcase-card h2{
-
-    font-size:26px;
-
-}
-
-.showcase-card p{
-
-    font-size:18px;
-
-}
-
-.showcase-card button{
-
-    width:100%;
-
-}
 }/* ==========================================
    SHOWCASE ENGINE
 ========================================== */
@@ -838,6 +665,123 @@ body {
     }
 
 }
+
+/* ==========================================
+   WINDOW ENGINE
+========================================== */
+.vanc-window{
+
+    position:absolute;
+
+    top:40px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(900px,95vw);
+
+    max-height:85vh;
+
+    background:#1b1b1b;
+
+    color:white;
+
+    border-radius:18px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+    border:1px solid #555;
+
+    overflow:auto;
+
+    z-index:20000;
+
+    pointer-events:auto;
+
+}
+.vanc-titlebar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#2a2a2a;
+
+    padding:14px 20px;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}
+
+.close-window{
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+}
+
+.vanc-content{
+
+    padding:20px;
+
+}
+
+.showcase-row{
+
+    padding:14px;
+
+    margin-bottom:10px;
+
+    border-radius:10px;
+
+    background:#303030;
+
+    cursor:pointer;
+
+}
+
+.showcase-row:hover{
+
+    background:#444;
+
+}
+
+#vanc-os{
+
+    position:relative;
+
+    width:100%;
+
+    height:100vh;
+
+    overflow:hidden;
+
+}
+
+#window-manager{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:15000;
+
+    pointer-events:none;
+
+}
+
 </style>
 
 
@@ -934,6 +878,8 @@ body {
 <script src="js/engine/memory.js"></script>
 <script src="js/engine/seed.js"></script>
 <script src="js/engine/gardenkeeper.js"></script>
+<script src="js/engine/window.js"></script>
+<script src="js/engine/showcaseManager.js"></script>
 <script src="js/engine/showcase.js"></script>
 
 <script src="js/core.js"></script>

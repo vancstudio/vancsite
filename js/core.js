@@ -91,6 +91,8 @@ core.load(gallery);
 core.load(new RefugioEngine());   // ← NUEVO
 
 core.load(new ShowcaseEngine());
+core.load(new WindowEngine());
+core.load(new ShowcaseManagerEngine());
 
 core.load(new WebsiteEngine());
 core.load(new DesktopEngine());
