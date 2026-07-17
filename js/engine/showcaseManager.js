@@ -3,8 +3,12 @@ class ShowcaseManagerEngine {
     constructor() {
 
         this.name = "ShowcaseManager";
-        this.version = "2.0.0";
+        this.version = "2.1.0";
         this.status = "OFFLINE";
+
+        this.content = null;
+        this.gallery = null;
+        this.windowEngine = null;
 
     }
 
@@ -20,78 +24,119 @@ class ShowcaseManagerEngine {
 
         console.log("🛠 Entrando en ShowcaseManager.open()");
 
-    console.log("1");
+        this.windowEngine = this.core.getEngine("Window");
+        this.gallery = this.core.getEngine("Gallery");
 
-    const windowEngine = this.core.getEngine("Window");
-    console.log("2", windowEngine);
+        const win = this.windowEngine.create("Gestor de Escaparates");
 
-    const gallery = this.core.getEngine("Gallery");
-    console.log("3", gallery);
+        this.content = win.querySelector(".vanc-content");
 
-    const win = windowEngine.create("Gestor de Escaparates");
-    console.log("4", win);
-
-    const content = win.querySelector(".vanc-content");
-    console.log("5", content);
-
-    const showcases = gallery.getShowcases();
-    console.log("6", showcases);
-
-    let html = "<h2>Escaparates</h2>";
-
-showcases.forEach(showcase => {
-
-    html += `
-        <div class="showcase-row">
-
-            <h3>${showcase.title}</h3>
-
-            <p>${showcase.text}</p>
-
-            <button data-id="${showcase.id}">
-                ${showcase.button}
-            </button>
-
-        </div>
-    `;
-
-});
-
-content.innerHTML = html;
-
-content.querySelectorAll("button").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        const id = button.dataset.id;
-
-        console.log("Escaparate seleccionado:", id);
-
-        const showcase = gallery.getShowcase(id);
-
-        if (!showcase) return;
-
-        const detail = windowEngine.create(showcase.title);
-
-const detailContent = detail.querySelector(".vanc-content");
-
-detailContent.innerHTML = `
-    <div class="showcase-card">
-
-        <div class="showcase-image">
-            <img src="${showcase.image}" alt="${showcase.title}">
-        </div>
-
-        <p>${showcase.text}</p>
-
-    </div>
-`;
-
-    });
-
-});
-
-console.log("7");
+        this.renderShowcases();
 
     }
+
+    renderShowcases() {
+
+        const showcases = this.gallery.getShowcases();
+
+        let html = "<h2>Escaparates</h2>";
+
+        showcases.forEach(showcase => {
+
+            html += `
+                <div class="showcase-row">
+
+                    <h3>${showcase.title}</h3>
+
+                    <p>${showcase.text}</p>
+
+                    <button data-id="${showcase.id}">
+                        ${showcase.button}
+                    </button>
+
+                </div>
+            `;
+
+        });
+
+        this.content.innerHTML = html;
+
+        this.activateButtons();
+
+    }
+
+    activateButtons() {
+
+        this.content.querySelectorAll("button").forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const id = button.dataset.id;
+
+                console.log("Escaparate seleccionado:", id);
+
+                const showcase = this.gallery.getShowcase(id);
+
+                if (!showcase) return;
+
+                this.openEditor(showcase);
+
+            });
+
+        });
+
+    }
+
+    openEditor(showcase) {
+
+        const detail = this.windowEngine.create("Editar escaparate");
+
+        const detailContent = detail.querySelector(".vanc-content");
+
+        detailContent.innerHTML = `
+
+<label>Título</label><br>
+<input id="sc-title" type="text" value="${showcase.title}"><br><br>
+
+<label>Imagen</label><br>
+<input id="sc-image" type="text" value="${showcase.image}"><br><br>
+
+<label>Texto</label><br>
+<textarea id="sc-text">${showcase.text}</textarea><br><br>
+
+<label>Botón</label><br>
+<input id="sc-button" type="text" value="${showcase.button}"><br><br>
+
+<button id="save-showcase">
+💾 Guardar
+</button>
+
+`;
+
+        const titleInput = detailContent.querySelector("#sc-title");
+        const imageInput = detailContent.querySelector("#sc-image");
+        const textInput = detailContent.querySelector("#sc-text");
+        const buttonInput = detailContent.querySelector("#sc-button");
+
+        detailContent.querySelector("#save-showcase").addEventListener("click", () => {
+
+            showcase.title = titleInput.value;
+            showcase.image = imageInput.value;
+            showcase.text = textInput.value;
+            showcase.button = buttonInput.value;
+
+            this.gallery.save();
+
+            console.log("💾 Escaparate actualizado");
+            console.log(showcase);
+
+            // Redibuja automáticamente la lista
+            this.renderShowcases();
+
+            alert("Cambios guardados en memoria");
+
+        });
+
+    }
+
 }

@@ -41,11 +41,24 @@ console.log(this.getShowcase("forest"));
 
         console.log("📡 HTTP:", response.status);
 
-        this.showcases = await response.json();
+       const local = localStorage.getItem("vanc-showcases");
 
-        console.log("📚 Refugio cargado");
+if (local) {
 
-        console.table(this.showcases);
+    console.log("📂 Cargando escaparates desde localStorage");
+
+    this.showcases = JSON.parse(local);
+
+} else {
+
+    this.showcases = await response.json();
+
+    console.log("📚 Refugio cargado desde JSON");
+
+}
+
+console.table(this.showcases);
+
 
     } catch (error) {
 
@@ -114,6 +127,19 @@ addShowcase(showcase) {
     this.showcases.push(showcase);
 
     console.log("✅ Escaparate añadido:", showcase.title);
+
+}
+save() {
+
+    localStorage.setItem(
+
+        "vanc-showcases",
+
+        JSON.stringify(this.showcases)
+
+    );
+
+    console.log("💾 Gallery guardada en localStorage");
 
 }
 }
