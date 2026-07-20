@@ -2,11 +2,11 @@
     {
         "id": "welcome",
 
-        "title": "🌿 Desde el Estudio",
+        "title": "🌿 Refugio del Arte 🌿",
 
         "image": "assets/showcase/escaparate1.jpg",
 
-        "text": "Las ideas nacen como semillas. Aquí empiezan su camino.",
+        "text": " Metodología artística, curatorial en el bosque del Arte .",
 
         "button": "Descubrir →"
     },
@@ -14,11 +14,11 @@
     {
         "id": "forest",
 
-        "title": "🌳 El Bosque",
+        "title": "🌳 Metodo Del Valle 🌳",
 
         "image": "assets/showcase/escaparate2.jpg",
 
-        "text": "Cada paseo inspira una nueva creación.",
+        "text": "Taller de psicologia creatica Metodo Del Valle.",
 
         "button": "Entrar"
     },
@@ -26,11 +26,12 @@
     {
         "id": "fire",
 
-        "title": "🔥 Después del incendio",
+        
+        "title": "☯️ Taichi del Arte ☯️Taichi",
 
         "image": "assets/showcase/escaparate3.jpg",
 
-        "text": "Incluso entre las cenizas nacen nuevos proyectos.",
+        "text": "Taichi y meditación Refugio del Arte.",
 
         "button": "Explorar"
     }
