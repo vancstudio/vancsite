@@ -146,27 +146,10 @@
   <main class="page">
 
     <h1>Prints</h1>
+<section class="prints-grid" id="gallery">
 
-    <section class="prints-grid">
 
-      <a href="print-01.html" class="print-item">
-
-        <div class="print-image">
-          <div class="img img-main"
-               style="background-image: url('print1-a.jpg');"></div>
-
-          <div class="img img-hover"
-               style="background-image: url('print1-b.jpg');"></div>
-
-          <div class="shield"></div>
-        </div>
-
-        <h2>Obra I</h2>
-        <p class="price">120 €</p>
-
-      </a>
-
-    </section>
+</section>
 
   </main>
 
@@ -176,6 +159,11 @@
       e.preventDefault();
     });
   </script>
+<script src="data/artworks.js"></script>
+<script src="js/catalog-engine.js"></script>
 
+<script>
+    renderGallery("gallery", "prints");
+</script>
 </body>
 </html>
