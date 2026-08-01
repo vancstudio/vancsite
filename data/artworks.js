@@ -1,16 +1,29 @@
 const artworks = [
-  {
+
+    {
     id: "print-001",
+
+    artist: "Van©",
 
     title: "Obra I",
 
-    description:"Print de edición abierta.",
+    description: "Print de edición abierta.",
 
     category: "prints",
 
     technique: "Fine Art Print",
 
     collection: "Open Edition",
+
+    year: 2026,
+
+    dimensions: "50 × 70 cm",
+
+    edition: "Edición abierta",
+
+    certificate: true,
+
+    status: "available",
 
     price: 120,
 
@@ -20,8 +33,8 @@ const artworks = [
 
     hover: "print1-b.jpg",
 
-    page: "print-01.html",
+    paypalHostedButtonId: "WN54RDVVYCQQU",
 
     available: true
-  }
+}
 ];

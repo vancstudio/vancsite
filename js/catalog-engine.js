@@ -1,3 +1,14 @@
+function getArtworksByCategory(category) {
+    return artworks.filter(artwork =>
+        artwork.category === category &&
+        artwork.available === true
+    );
+}
+
+function getArtworkById(id) {
+    return artworks.find(artwork => artwork.id === id);
+}
+
 function renderGallery(containerId, category) {
 
     const container = document.getElementById(containerId);
@@ -6,17 +17,13 @@ function renderGallery(containerId, category) {
 
     container.innerHTML = "";
 
-    const filtered = artworks.filter(
-        artwork =>
-            artwork.category === category &&
-            artwork.available === true
-    );
+    const filtered = getArtworksByCategory(category);
 
     filtered.forEach(artwork => {
 
         container.innerHTML += `
 
-        <a href="${artwork.page}" class="print-item">
+        <a href="artwork.html?id=${artwork.id}" class="print-item">
 
             <div class="print-image">
 
