@@ -9,7 +9,7 @@ function getArtworkById(id) {
     return artworks.find(artwork => artwork.id === id);
 }
 
-function renderGallery(containerId, category) {
+function renderGallery(containerId, category, mode = "catalog") {
 
     const container = document.getElementById(containerId);
 
@@ -23,7 +23,7 @@ function renderGallery(containerId, category) {
 
         container.innerHTML += `
 
-        <a href="artwork.html?id=${artwork.id}" class="print-item">
+        <a href="artwork.html?id=${artwork.id}&mode=${mode}" class="print-item">
 
             <div class="print-image">
 
@@ -43,9 +43,21 @@ function renderGallery(containerId, category) {
 
             <h2>${artwork.title}</h2>
 
-            <p class="price">
-                ${artwork.price} €
-            </p>
+            ${mode === "catalog" ? `
+
+<p class="price">
+    ${artwork.price} €
+</p>
+
+` : ``}
+${mode === "gallery" && artwork.available ? `
+
+<p class="view-catalog">
+    Ver disponibilidad →
+</p>
+
+` : ``}
+
 
         </a>
 

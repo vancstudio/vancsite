@@ -8,6 +8,8 @@ function getParameter(name){
 
 function loadArtwork(){
 
+    const mode = getParameter("mode") || "catalog";
+
     const id = getParameter("id");
 
     if(!id) return;
@@ -45,11 +47,43 @@ function loadArtwork(){
     document.getElementById("artwork-description").textContent =
         artwork.description;
 
+     const action = document.getElementById("artwork-action");
+
+const action = document.getElementById("artwork-action");
+
+if (mode === "gallery") {
+
+    if (artwork.available) {
+
+        action.innerHTML = `
+            <a href="artwork.html?id=${artwork.id}&mode=catalog">
+                Ver disponibilidad en el Catálogo →
+            </a>
+        `;
+
+        document.querySelector(".paypal-wrapper").style.display = "none";
+
+    } else {
+
+        action.innerHTML = `
+            <p>Esta obra no está disponible actualmente.</p>
+        `;
+
+        document.querySelector(".paypal-wrapper").style.display = "none";
+
+    }
+
+} else {
+
+    action.innerHTML = "";
+
     paypal.HostedButtons({
 
         hostedButtonId: artwork.paypalHostedButtonId
 
     }).render("#paypal-container");
+
+
 
 }
 

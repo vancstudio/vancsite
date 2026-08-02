@@ -71,28 +71,45 @@
   margin: 0 auto;
 }
     /* ARTWORK */
-   .artwork {
-  width: 100%;
-  max-height: 60vh;
-  aspect-ratio: 3 / 4;
- 
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-bottom: 1rem;
+  .artwork{
+
+    width:100%;
+
+    aspect-ratio:3/4;
+
+    min-height:70vh;
+
+    background-size:contain;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    margin-bottom:40px;
+
 }
 
 
-    h1 {
-      font-size: 1.6rem;
-      font-weight: 400;
-      margin-bottom: 0.2rem;
-    }
+    h1{
 
-    .price {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
+    font-size:2.2rem;
+
+    font-weight:300;
+
+    letter-spacing:.04em;
+
+    margin-bottom:10px;
+
+}
+    .price{
+
+    font-size:1.4rem;
+
+    font-weight:300;
+
+    margin-bottom:35px;
+
+}
 
 .artwork-info{
 
@@ -123,6 +140,35 @@
     color:#222;
 
 }
+
+#artwork-action{
+
+    margin:30px 0;
+
+    font-size:1rem;
+
+}
+
+#artwork-action a{
+
+    color:#111;
+
+    text-decoration:none;
+
+    border-bottom:1px solid #111;
+
+    padding-bottom:2px;
+
+    transition:.25s;
+
+}
+
+#artwork-action a:hover{
+
+    opacity:.65;
+
+}
+
 
 .conditions{
 
@@ -164,8 +210,8 @@
 
     <nav class="menu">
       <a href="index.html">Inicio</a>
-      <a href="obra.html">Obra</a>
-      <a href="prints.html">Prints</a>
+     <a href="gallery.html">Galería</a>
+     <a href="catalog.html">Catálogo</a>
       <a href="bio.html">Bio</a>
     </nav>
   </header>
@@ -204,6 +250,9 @@
     <p id="artwork-description"></p>
 
 </div>
+
+<div id="artwork-action"></div>
+
 
 <div class="paypal-wrapper">
 
