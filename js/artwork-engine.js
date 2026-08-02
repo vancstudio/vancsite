@@ -49,7 +49,7 @@ function loadArtwork(){
 
      const action = document.getElementById("artwork-action");
 
-const action = document.getElementById("artwork-action");
+
 
 if (mode === "gallery") {
 
@@ -83,7 +83,7 @@ if (mode === "gallery") {
 
     }).render("#paypal-container");
 
-
+}
 
 }
 

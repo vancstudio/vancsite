@@ -60,10 +60,10 @@ class DesktopEngine {
         <span class="label">IA</span>
     </button>
 
-    <button id="app-shop">
-        <span class="icon">🛒</span>
-        <span class="label">Tienda</span>
-    </button>
+<button id="app-artwork">
+    <span class="icon">🎨</span>
+    <span class="label">Obras</span>
+</button>
 
     <button id="app-settings">
         <span class="icon">⚙️</span>
@@ -139,13 +139,15 @@ class DesktopEngine {
 
         });
 
-    document
-        .getElementById("app-shop")
-        .addEventListener("click", () => {
+document
+    .getElementById("app-artwork")
+    .addEventListener("click", () => {
 
-            console.log("Abrir Shop");
+        this.core
+            .getEngine("Artwork")
+            .open();
 
-        });
+    });
 
     document
         .getElementById("app-settings")

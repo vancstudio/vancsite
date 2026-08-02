@@ -136,6 +136,81 @@ Futuras categorías
       -webkit-user-drag: none;
       user-drag: none;
     }
+
+    .catalog-header{
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+}
+
+.catalog-header h1{
+
+    font-size:2.3rem;
+
+    font-weight:300;
+
+    letter-spacing:.08em;
+
+    margin-bottom:15px;
+
+}
+
+.catalog-header p{
+
+    max-width:620px;
+
+    margin:auto;
+
+    line-height:1.8;
+
+    color:#666;
+
+}
+
+.catalog-filter{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:22px;
+
+    margin-bottom:60px;
+
+}
+
+.catalog-filter a{
+
+    text-decoration:none;
+
+    color:#777;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.catalog-filter a:hover{
+
+    color:#111;
+
+}
+
+.catalog-filter .active{
+
+    color:#111;
+
+    border-bottom:1px solid #111;
+
+    padding-bottom:4px;
+
+}
+
   </style>
 </head>
 
@@ -160,7 +235,21 @@ Futuras categorías
   <!-- CONTENT -->
   <main class="page">
 
+    <header class="catalog-header">
+
     <h1>Catálogo</h1>
+
+    <p>
+        Una selección de obras disponibles para
+        incorporación a colección.
+    </p>
+
+</header>
+
+<nav class="catalog-filter" id="catalog-filter">
+
+</nav>
+
 <section class="prints-grid" id="gallery">
 
 
@@ -173,11 +262,12 @@ Futuras categorías
     document.addEventListener('contextmenu', function (e) {
       e.preventDefault();
     });
-  </script>
-<script src="data/artworks.js"></script>
+  </script><script src="data/artworks.js"></script>
 <script src="js/catalog-engine.js"></script>
 
 <script>
+    renderFilters();
+    activateFilters();
     renderGallery("gallery", "prints", "catalog");
 </script>
 </body>
