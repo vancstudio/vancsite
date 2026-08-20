@@ -563,7 +563,59 @@ body {
 
 }
 
+.artwork-editor {
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
 
+.artwork-editor label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.artwork-editor input,
+.artwork-editor textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font: inherit;
+}
+
+.artwork-editor textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+@media (max-width: 700px) {
+
+    #vanc-os {
+        padding: 10px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #vanc-os .app {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .artwork-editor {
+        grid-template-columns: 1fr;
+    }
+
+    .artwork-editor input,
+    .artwork-editor textarea {
+        width: 100%;
+    }
+
+}
 
 /* ==========================
    MÓVIL
@@ -758,18 +810,6 @@ body {
 
 }
 
-#vanc-os{
-
-    position:relative;
-
-    width:100%;
-
-    height:100vh;
-
-    overflow:hidden;
-
-}
-
 #window-manager{
 
     position:absolute;
@@ -888,7 +928,7 @@ body {
 <script src="js/engine/desktop.js"></script>
 <script src="js/engine/apps/garden.js"></script>
 <script src="js/engine/apps/diary.js"></script>
-<script src="js/engine/apps/artwork.js"></script>
+
 <script src="js/engine/memory.js"></script>
 <script src="js/engine/seed.js"></script>
 <script src="js/engine/gardenkeeper.js"></script>
@@ -900,6 +940,10 @@ body {
 
 <script src="js/catalog-engine.js"></script>
 <script src="js/artwork-engine.js"></script>
+
+<script src="data/artworks.js"></script>
+
+<script src="js/engine/apps/artwork.js"></script>
 
 <script src="js/core.js"></script>
 </body>
