@@ -16,6 +16,7 @@ class ArtworkEngine {
 
     }
 
+
     open() {
 
         const panel = document.getElementById("vanc-os");
@@ -63,6 +64,7 @@ class ArtworkEngine {
 
         `;
 
+
         document
             .getElementById("newArtwork")
             .addEventListener("click", () => {
@@ -70,6 +72,7 @@ class ArtworkEngine {
                 console.log("Nueva obra");
 
             });
+
 
         document
             .getElementById("catalogArtwork")
@@ -79,6 +82,7 @@ class ArtworkEngine {
 
             });
 
+
         document
             .getElementById("galleryArtwork")
             .addEventListener("click", () => {
@@ -87,6 +91,7 @@ class ArtworkEngine {
 
             });
 
+
         document
             .getElementById("settingsArtwork")
             .addEventListener("click", () => {
@@ -94,6 +99,7 @@ class ArtworkEngine {
                 console.log("Configuración");
 
             });
+
 
         document
             .getElementById("backDesktop")
@@ -115,7 +121,22 @@ class ArtworkEngine {
         panel.scrollTop = 0;
         window.scrollTo(0, 0);
 
-        const artworksList = artworks
+
+        /*
+         * Primero buscamos un catálogo guardado.
+         *
+         * Si todavía no existe,
+         * utilizamos data/artworks.js
+         */
+
+        const storedArtworks =
+            Storage.load("artworks");
+
+        const catalogArtworks =
+            storedArtworks || artworks;
+
+
+        const artworksList = catalogArtworks
             .filter(artwork => artwork.available === true)
             .map(artwork => `
 
@@ -152,6 +173,7 @@ class ArtworkEngine {
             `)
             .join("");
 
+
         panel.innerHTML = `
 
             <div class="app">
@@ -177,15 +199,21 @@ class ArtworkEngine {
 
                 button.addEventListener("click", () => {
 
-                    const id = button.dataset.id;
+                    const id =
+                        button.dataset.id;
 
-                    const artwork = artworks.find(
-                        artwork => artwork.id === id
-                    );
+                    const artwork =
+                        catalogArtworks.find(
+                            artwork =>
+                                artwork.id === id
+                        );
 
                     if (!artwork) return;
 
-                    this.openEditor(artwork);
+                    this.openEditor(
+                        artwork,
+                        catalogArtworks
+                    );
 
                 });
 
@@ -203,153 +231,265 @@ class ArtworkEngine {
     }
 
 
-    openEditor(artwork) {
+    openEditor(
+        artwork,
+        catalogArtworks
+    ) {
 
-    const panel = document.getElementById("vanc-os");
+        const panel =
+            document.getElementById("vanc-os");
 
-    panel.scrollTop = 0;
-    window.scrollTo(0, 0);
+        panel.scrollTop = 0;
+        window.scrollTo(0, 0);
 
-    panel.innerHTML = `
 
-        <div class="app">
+        panel.innerHTML = `
 
-            <h1>✏️ Editar obra</h1>
+            <div class="app">
 
-            <div class="artwork-editor">
+                <h1>✏️ Editar obra</h1>
 
-                <label>
-                    Título
-                    <input
-                        id="edit-title"
-                        type="text"
-                        value="${artwork.title}">
-                </label>
+                <div class="artwork-editor">
 
-                <label>
-                    Descripción
-                    <textarea id="edit-description">${artwork.description}</textarea>
-                </label>
+                    <label>
+                        Título
 
-                <label>
-                    Técnica
-                    <input
-                        id="edit-technique"
-                        type="text"
-                        value="${artwork.technique}">
-                </label>
+                        <input
+                            id="edit-title"
+                            type="text"
+                            value="${artwork.title}">
+                    </label>
 
-                <label>
-                    Colección
-                    <input
-                        id="edit-collection"
-                        type="text"
-                        value="${artwork.collection}">
-                </label>
 
-                <label>
-                    Año
-                    <input
-                        id="edit-year"
-                        type="number"
-                        value="${artwork.year}">
-                </label>
+                    <label>
+                        Descripción
 
-                <label>
-                    Dimensiones
-                    <input
-                        id="edit-dimensions"
-                        type="text"
-                        value="${artwork.dimensions}">
-                </label>
+                        <textarea
+                            id="edit-description">${artwork.description}</textarea>
+                    </label>
 
-                <label>
-                    Edición
-                    <input
-                        id="edit-edition"
-                        type="text"
-                        value="${artwork.edition}">
-                </label>
 
-                <label>
-                    Precio (€)
-                    <input
-                        id="edit-price"
-                        type="number"
-                        value="${artwork.price}">
-                </label>
+                    <label>
+                        Técnica
 
-                <label>
-                    Disponible
-                    <input
-                        id="edit-available"
-                        type="checkbox"
-                        ${artwork.available ? "checked" : ""}>
-                </label>
+                        <input
+                            id="edit-technique"
+                            type="text"
+                            value="${artwork.technique}">
+                    </label>
+
+
+                    <label>
+                        Colección
+
+                        <input
+                            id="edit-collection"
+                            type="text"
+                            value="${artwork.collection}">
+                    </label>
+
+
+                    <label>
+                        Año
+
+                        <input
+                            id="edit-year"
+                            type="number"
+                            value="${artwork.year}">
+                    </label>
+
+
+                    <label>
+                        Dimensiones
+
+                        <input
+                            id="edit-dimensions"
+                            type="text"
+                            value="${artwork.dimensions}">
+                    </label>
+
+
+                    <label>
+                        Edición
+
+                        <input
+                            id="edit-edition"
+                            type="text"
+                            value="${artwork.edition}">
+                    </label>
+
+
+                    <label>
+                        Precio (€)
+
+                        <input
+                            id="edit-price"
+                            type="number"
+                            value="${artwork.price}">
+                    </label>
+
+
+                    <label>
+
+                        Disponible
+
+                        <input
+                            id="edit-available"
+                            type="checkbox"
+                            ${artwork.available
+                                ? "checked"
+                                : ""}>
+
+                    </label>
+
+                </div>
+
+
+                <br>
+
+
+                <button id="saveArtwork">
+
+                    💾 Guardar cambios
+
+                </button>
+
+
+                <button id="backCatalog">
+
+                    ← Volver al Catálogo
+
+                </button>
 
             </div>
 
-            <br>
-
-            <button id="saveArtwork">
-                💾 Guardar cambios
-            </button>
-
-            <button id="backCatalog">
-                ← Volver al Catálogo
-            </button>
-
-        </div>
-
-    `;
+        `;
 
 
-    document
-        .getElementById("saveArtwork")
-        .addEventListener("click", () => {
+        /*
+         * GUARDAR
+         */
 
-            artwork.title =
-                document.getElementById("edit-title").value;
-
-            artwork.description =
-                document.getElementById("edit-description").value;
-
-            artwork.technique =
-                document.getElementById("edit-technique").value;
-
-            artwork.collection =
-                document.getElementById("edit-collection").value;
-
-            artwork.year =
-                Number(document.getElementById("edit-year").value);
-
-            artwork.dimensions =
-                document.getElementById("edit-dimensions").value;
-
-            artwork.edition =
-                document.getElementById("edit-edition").value;
-
-            artwork.price =
-                Number(document.getElementById("edit-price").value);
-
-            artwork.available =
-                document.getElementById("edit-available").checked;
-
-            console.log("🎨 Obra actualizada:", artwork);
-
-            alert("Cambios guardados en memoria.");
-
-        });
+        document
+            .getElementById("saveArtwork")
+            .addEventListener("click", () => {
 
 
-    document
-        .getElementById("backCatalog")
-        .addEventListener("click", () => {
+                artwork.title =
+                    document
+                        .getElementById(
+                            "edit-title"
+                        )
+                        .value;
 
-            this.openCatalog();
 
-        });
+                artwork.description =
+                    document
+                        .getElementById(
+                            "edit-description"
+                        )
+                        .value;
 
-}
+
+                artwork.technique =
+                    document
+                        .getElementById(
+                            "edit-technique"
+                        )
+                        .value;
+
+
+                artwork.collection =
+                    document
+                        .getElementById(
+                            "edit-collection"
+                        )
+                        .value;
+
+
+                artwork.year =
+                    Number(
+                        document
+                            .getElementById(
+                                "edit-year"
+                            )
+                            .value
+                    );
+
+
+                artwork.dimensions =
+                    document
+                        .getElementById(
+                            "edit-dimensions"
+                        )
+                        .value;
+
+
+                artwork.edition =
+                    document
+                        .getElementById(
+                            "edit-edition"
+                        )
+                        .value;
+
+
+                artwork.price =
+                    Number(
+                        document
+                            .getElementById(
+                                "edit-price"
+                            )
+                            .value
+                    );
+
+
+                artwork.available =
+                    document
+                        .getElementById(
+                            "edit-available"
+                        )
+                        .checked;
+
+
+                /*
+                 * Guardamos TODO el catálogo
+                 * en localStorage.
+                 */
+
+                Storage.save(
+                    "artworks",
+                    catalogArtworks
+                );
+
+
+                console.log(
+                    "🎨 Catálogo guardado:",
+                    catalogArtworks
+                );
+
+
+                alert(
+                    "Cambios guardados correctamente."
+                );
+
+
+                this.openCatalog();
+
+            });
+
+
+        /*
+         * VOLVER
+         */
+
+        document
+            .getElementById("backCatalog")
+            .addEventListener("click", () => {
+
+                this.openCatalog();
+
+            });
+
+    }
 
 }
