@@ -100,6 +100,8 @@ core.load(new DesktopEngine());
 core.load(new GardenEngine());
 core.load(new DiaryEngine());
 core.load(new ArtworkEngine());
+core.load(new CatalogEditorEngine());
+
 
 (async () => {
 

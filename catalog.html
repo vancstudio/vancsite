@@ -261,14 +261,16 @@ Futuras categorías
   <script>
     document.addEventListener('contextmenu', function (e) {
       e.preventDefault();
+
+
     });
-  </script><script src="data/artworks.js"></script>
+</script>
+
 <script src="js/catalog-engine.js"></script>
+<script src="js/catalog-data.js"></script>
 
 <script>
-    renderFilters();
-    activateFilters();
-    renderGallery("gallery", "prints", "catalog");
+    loadArtworks();
 </script>
 </body>
 </html>

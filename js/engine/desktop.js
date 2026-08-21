@@ -3,10 +3,11 @@ class DesktopEngine {
     constructor() {
 
         this.name = "Desktop";
-        this.version = "1.0.0";
+        this.version = "1.1.0";
         this.status = "OFFLINE";
 
     }
+
 
     init() {
 
@@ -14,155 +15,380 @@ class DesktopEngine {
 
     }
 
-  open() {
 
-    const panel = document.getElementById("vanc-os");
+    open() {
 
-    const auth = this.core.getEngine("Authentication");
+        const panel =
+            document.getElementById("vanc-os");
 
-    const user = auth.currentUser();
+        const auth =
+            this.core.getEngine(
+                "Authentication"
+            );
 
-    panel.style.display = "flex";
+        const user =
+            auth.currentUser();
 
-    panel.innerHTML = `
+        /*
+         * Comprobamos si existe
+         * una sesión administrativa VANC.
+         */
 
-     <div id="window-manager"></div>
+        const adminActive =
+            auth.isAdminSessionActive();
 
-    <div class="desktop">
 
-        <div class="desktop-header">
+        panel.style.display = "flex";
 
-            <h1>VANC OS</h1>
 
-            <p>${user ? user.name : "Invitado"}</p>
+        panel.innerHTML = `
 
-        </div>
+            <div id="window-manager"></div>
 
-       <div class="desktop-icons">
+            <div class="desktop">
 
-    <button id="app-diary">
-        <span class="icon">📝</span>
-        <span class="label">Diario</span>
-    </button>
+                <div class="desktop-header">
 
-    <button id="app-garden">
-        <span class="icon">🌱</span>
-        <span class="label">Jardín</span>
-    </button>
+                    <h1>VANC OS</h1>
 
-    <button id="app-gallery">
-        <span class="icon">🖼️</span>
-       <span class="label">Escaparate</span>
-    </button>
+                    <p>
+                        ${user
+                            ? user.name
+                            : "Invitado"}
+                    </p>
 
-    <button id="app-ai">
-        <span class="icon">🤖</span>
-        <span class="label">IA</span>
-    </button>
+                </div>
 
-<button id="app-artwork">
-    <span class="icon">🎨</span>
-    <span class="label">Obras</span>
-</button>
 
-    <button id="app-settings">
-        <span class="icon">⚙️</span>
-        <span class="label">Sistema</span>
-    </button>
+                <div class="desktop-icons">
 
-</div>
 
-        <hr>
+                    <button id="app-diary">
 
-        <button id="back-gallery">
+                        <span class="icon">
+                            📝
+                        </span>
 
-            ← Volver a la Galería
+                        <span class="label">
+                            Diario
+                        </span>
 
-        </button>
+                    </button>
 
-    </div>
 
-    `;
+                    <button id="app-garden">
 
-    this.events();
+                        <span class="icon">
+                            🌱
+                        </span>
 
-}
+                        <span class="label">
+                            Jardín
+                        </span>
+
+                    </button>
+
+
+                    <button id="app-gallery">
+
+                        <span class="icon">
+                            🖼️
+                        </span>
+
+                        <span class="label">
+                            Escaparate
+                        </span>
+
+                    </button>
+
+
+                    <button id="app-ai">
+
+                        <span class="icon">
+                            🤖
+                        </span>
+
+                        <span class="label">
+                            IA
+                        </span>
+
+                    </button>
+
+
+                    <button id="app-artwork">
+
+                        <span class="icon">
+                            🎨
+                        </span>
+
+                        <span class="label">
+                            Obras
+                        </span>
+
+                    </button>
+
+
+                    ${
+                        adminActive
+                        ? `
+
+                        <button id="app-catalog">
+
+                            <span class="icon">
+                                🛠️
+                            </span>
+
+                            <span class="label">
+                                Catálogo
+                            </span>
+
+                        </button>
+
+                        `
+                        : ""
+                    }
+
+
+                    <button id="app-settings">
+
+                        <span class="icon">
+                            ⚙️
+                        </span>
+
+                        <span class="label">
+                            Sistema
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+                <hr>
+
+
+                <button id="back-gallery">
+
+                    ← Volver a la Galería
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        this.events();
+
+    }
+
+
     close() {
 
-    const panel = document.getElementById("vanc-os");
+        const panel =
+            document.getElementById(
+                "vanc-os"
+            );
 
-    panel.style.display = "none";
+        panel.style.display =
+            "none";
 
-}
-     events() {
+    }
 
-    document
-        .getElementById("app-diary")
-        .addEventListener("click", () => {
 
-            const diary = this.core.getEngine("Diary");
+    events() {
 
-            if (diary) {
 
-                diary.open();
+        document
+            .getElementById(
+                "app-diary"
+            )
+            .addEventListener(
+                "click",
+                () => {
 
-            }
+                    const diary =
+                        this.core.getEngine(
+                            "Diary"
+                        );
 
-        });
-    document
-        .getElementById("app-garden")
-        .addEventListener("click", () => {
+                    if (diary) {
 
-           this.core
-            .getEngine("Garden")
-            .open();
+                        diary.open();
 
-});
-   document
-    .getElementById("app-gallery")
-    .addEventListener("click", () => {
+                    }
 
-        console.log("🖼️ Botón Escaparate pulsado");
+                }
+            );
 
-        const manager = this.core.getEngine("ShowcaseManager");
 
-        console.log("Manager:", manager);
+        document
+            .getElementById(
+                "app-garden"
+            )
+            .addEventListener(
+                "click",
+                () => {
 
-        manager.open();
+                    const garden =
+                        this.core.getEngine(
+                            "Garden"
+                        );
 
-    });
-    document
-        .getElementById("app-ai")
-        .addEventListener("click", () => {
+                    if (garden) {
 
-            console.log("Abrir IA");
+                        garden.open();
 
-        });
+                    }
 
-document
-    .getElementById("app-artwork")
-    .addEventListener("click", () => {
+                }
+            );
 
-        this.core
-            .getEngine("Artwork")
-            .open();
 
-    });
+        document
+            .getElementById(
+                "app-gallery"
+            )
+            .addEventListener(
+                "click",
+                () => {
 
-    document
-        .getElementById("app-settings")
-        .addEventListener("click", () => {
+                    console.log(
+                        "🖼️ Botón Escaparate pulsado"
+                    );
 
-            console.log("Abrir Sistema");
+                    const manager =
+                        this.core.getEngine(
+                            "ShowcaseManager"
+                        );
 
-        });
-    document
-    .getElementById("back-gallery")
-    .addEventListener("click", () => {
+                    console.log(
+                        "Manager:",
+                        manager
+                    );
 
-        this.core.returnToGallery();
+                    manager.open();
 
-    });
-}
+                }
+            );
+
+
+        document
+            .getElementById(
+                "app-ai"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    console.log(
+                        "Abrir IA"
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "app-artwork"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    const artwork =
+                        this.core.getEngine(
+                            "Artwork"
+                        );
+
+                    if (artwork) {
+
+                        artwork.open();
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * CATÁLOGO
+         *
+         * Solo existe si Vani
+         * tiene sesión administrativa.
+         */
+
+        const catalogButton =
+            document.getElementById(
+                "app-catalog"
+            );
+
+
+        if (catalogButton) {
+
+            catalogButton.addEventListener(
+                "click",
+                () => {
+
+                    console.log(
+                        "🛠️ Editor de catálogo solicitado"
+                    );
+
+                    const editor =
+                        this.core.getEngine(
+                            "CatalogEditor"
+                        );
+
+                    if (editor) {
+
+                        editor.open();
+
+                    } else {
+
+                        console.error(
+                            "CatalogEditor no está registrado en Core."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        document
+            .getElementById(
+                "app-settings"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    console.log(
+                        "Abrir Sistema"
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "back-gallery"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    this.core.returnToGallery();
+
+                }
+            );
+
+    }
 
 }
