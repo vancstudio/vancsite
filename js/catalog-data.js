@@ -34,7 +34,7 @@ async function loadArtworks() {
             "catalog"
         );
 
-    } catch (error) {
+      } catch (error) {
 
         console.error(
             "❌ No se pudo cargar el catálogo:",

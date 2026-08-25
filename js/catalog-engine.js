@@ -1,8 +1,11 @@
 function getArtworksByCategory(category) {
 
     return artworks.filter(artwork =>
-        artwork.category === category &&
-        artwork.available === true
+        artwork.status === "available" &&
+        (
+            artwork.category === category ||
+            !artwork.category
+        )
     );
 
 }
@@ -94,11 +97,11 @@ function renderGallery(containerId, category, mode = "catalog") {
             <div class="print-image">
 
                 <div class="img img-main"
-                     style="background-image:url('${artwork.thumbnail}')">
+                     style="background-image:url('${artwork.images.main}')">
                 </div>
 
                 <div class="img img-hover"
-                     style="background-image:url('${artwork.hover}')">
+                     style="background-image:url('${artwork.images.hover}')">
                 </div>
 
                 <div class="shield"></div>
@@ -111,7 +114,7 @@ function renderGallery(containerId, category, mode = "catalog") {
                 <p class="price">${artwork.price} €</p>
             ` : ``}
 
-            ${mode === "gallery" && artwork.available ? `
+            ${mode === "gallery" && artwork.status === "available" ? `
                 <p class="view-catalog">
                     Ver disponibilidad →
                 </p>

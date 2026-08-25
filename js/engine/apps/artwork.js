@@ -8,6 +8,7 @@ class ArtworkEngine {
 
     }
 
+
     init() {
 
         this.status = "ONLINE";
@@ -65,14 +66,13 @@ class ArtworkEngine {
         `;
 
 
-        document
+               document
             .getElementById("newArtwork")
             .addEventListener("click", () => {
 
-                console.log("Nueva obra");
+                this.newArtwork();
 
             });
-
 
         document
             .getElementById("catalogArtwork")
@@ -113,65 +113,83 @@ class ArtworkEngine {
 
     }
 
+    async openCatalog() {
 
-    openCatalog() {
+        const panel =
+            document.getElementById("vanc-os");
 
-        const panel = document.getElementById("vanc-os");
 
         panel.scrollTop = 0;
         window.scrollTo(0, 0);
 
 
-        /*
-         * Primero buscamos un catálogo guardado.
-         *
-         * Si todavía no existe,
-         * utilizamos data/artworks.js
-         */
+        if (
+            (!artworks || artworks.length === 0) &&
+            typeof loadArtworks === "function"
+        ) {
 
-        const storedArtworks =
-            Storage.load("artworks");
+            await loadArtworks();
+
+        }
+
 
         const catalogArtworks =
-            storedArtworks || artworks;
+            artworks;
 
 
-        const artworksList = catalogArtworks
-            .filter(artwork => artwork.available === true)
-            .map(artwork => `
+        const artworksList =
+            catalogArtworks
+                .map(artwork => `
+<div class="artwork-card">
 
-                <div class="artwork-card">
-
-                    <h2>
-                        ${artwork.title}
-                    </h2>
-
-                    <p>
-                        ${artwork.technique}
-                    </p>
-
-                    <p>
-                        ${artwork.price} €
-                    </p>
-
-                    <p>
-                        ${artwork.available
-                            ? "Disponible"
-                            : "No disponible"}
-                    </p>
-
-                    <button
-                        data-id="${artwork.id}"
-                        class="editArtwork">
-
-                        ✏️ Editar
-
-                    </button>
-
+    ${
+        artwork.images?.main
+            ? `
+                <img
+    src="${artwork.images.main}"
+    data-main="${artwork.images.main}"
+    data-hover="${artwork.images?.hover || ""}"
+    alt="${artwork.title}"
+    class="artwork-card-image"
+>
+            `
+            : `
+                <div class="artwork-card-image artwork-card-empty">
+                    Sin imagen
                 </div>
+            `
+    }
 
-            `)
-            .join("");
+    <h2>
+        ${artwork.title}
+    </h2>
+
+                        <p>
+                            ${artwork.technique}
+                        </p>
+
+                        <p>
+                            ${artwork.price} €
+                        </p>
+
+                        <p>
+                            ${artwork.status === "available"
+                                ? "Disponible"
+                                : "No disponible"}
+                        </p>
+
+                        <button
+                            data-id="${artwork.id}"
+                            class="editArtwork">
+
+                            ✏️ Editar
+
+                        </button>
+
+                    </div>
+
+                `)
+                .join("");
 
 
         panel.innerHTML = `
@@ -180,7 +198,17 @@ class ArtworkEngine {
 
                 <h1>📚 Catálogo</h1>
 
-                ${artworksList}
+                <div class="artworks-grid">
+
+                    <div class="artworks-grid">
+
+                    ${artworksList}
+
+                </div>
+
+                <br>
+
+</div>
 
                 <br>
 
@@ -197,43 +225,198 @@ class ArtworkEngine {
             .querySelectorAll(".editArtwork")
             .forEach(button => {
 
-                button.addEventListener("click", () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                    const id =
-                        button.dataset.id;
+                        const id =
+                            button.dataset.id;
 
-                    const artwork =
-                        catalogArtworks.find(
-                            artwork =>
-                                artwork.id === id
+
+                        const artwork =
+                            catalogArtworks.find(
+                                artwork =>
+                                    artwork.id === id
+                            );
+
+
+                        if (!artwork) return;
+
+
+                        this.openEditor(
+                            artwork,
+                            catalogArtworks
                         );
 
-                    if (!artwork) return;
+                    }
+                );
 
-                    this.openEditor(
-                        artwork,
-                        catalogArtworks
-                    );
+            });
 
-                });
+        document
+            .querySelectorAll(".artwork-card-image")
+            .forEach(image => {
+
+                const main =
+                    image.dataset.main;
+
+                const hover =
+                    image.dataset.hover;
+
+
+                if (!hover) return;
+
+
+                image.addEventListener(
+                    "mouseenter",
+                    () => {
+
+                        image.src = hover;
+
+                    }
+                );
+
+
+                image.addEventListener(
+                    "mouseleave",
+                    () => {
+
+                        image.src = main;
+
+                    }
+                );
 
             });
 
 
         document
             .getElementById("backArtwork")
-            .addEventListener("click", () => {
+            .addEventListener(
+                "click",
+                () => {
 
-                this.open();
+                    this.open();
 
-            });
+                }
+            );
+
+    }
+
+
+    async loadCatalogFromAPI() {
+
+        const response =
+            await fetch(
+                "https://vanc-api.a26kiss.workers.dev/artworks"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "API error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        return Array.isArray(data)
+            ? data
+            : data.value || [];
+
+    }
+
+
+
+
+
+        async newArtwork() {
+
+    let catalogArtworks;
+
+    try {
+
+        catalogArtworks =
+            await this.loadCatalogFromAPI();
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando catálogo:",
+            error
+        );
+
+        alert(
+            "No se pudo cargar el catálogo actual."
+        );
+
+        return;
+
+    }
+
+        const artwork = {
+
+            id:
+                "VANC-" +
+                Date.now(),
+
+            title: "",
+
+            description: "",
+
+            technique: "",
+
+            collection: "",
+
+            year:
+                new Date()
+                    .getFullYear(),
+
+            dimensions: "",
+
+            edition: "",
+
+            price: 0,
+
+            status: "available",
+
+            images: {
+
+                main: "",
+
+                hover: ""
+
+            },
+
+            paypal: {
+
+                enabled: false,
+
+                hostedButtonId: ""
+
+            }
+
+        };
+
+
+        this.openEditor(
+            artwork,
+            catalogArtworks,
+            true
+        );
 
     }
 
 
     openEditor(
         artwork,
-        catalogArtworks
+        catalogArtworks,
+        isNew = false
     ) {
 
         const panel =
@@ -247,7 +430,11 @@ class ArtworkEngine {
 
             <div class="app">
 
-                <h1>✏️ Editar obra</h1>
+                <h1>
+    ${isNew
+        ? "➕ Nueva obra"
+        : "✏️ Editar obra"}
+</h1>
 
                 <div class="artwork-editor">
 
@@ -330,16 +517,88 @@ class ArtworkEngine {
 
 
                     <label>
+                        Estado
 
-                        Disponible
+                        <select id="edit-status">
+
+                            <option
+                                value="available"
+                                ${artwork.status === "available"
+                                    ? "selected"
+                                    : ""}>
+                                Disponible
+                            </option>
+
+                            <option
+                                value="reserved"
+                                ${artwork.status === "reserved"
+                                    ? "selected"
+                                    : ""}>
+                                Reservada
+                            </option>
+
+                            <option
+                                value="sold"
+                                ${artwork.status === "sold"
+                                    ? "selected"
+                                    : ""}>
+                                Vendida
+                            </option>
+
+                            <option
+                                value="archived"
+                                ${artwork.status === "archived"
+                                    ? "selected"
+                                    : ""}>
+                                Archivada
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        Imagen principal
 
                         <input
-                            id="edit-available"
-                            type="checkbox"
-                            ${artwork.available
-                                ? "checked"
-                                : ""}>
+                            id="edit-image-main"
+                            type="text"
+                            value="${artwork.images?.main || ""}">
+                    </label>
 
+
+                    <label>
+                        Imagen hover
+
+                        <input
+                            id="edit-image-hover"
+                            type="text"
+                            value="${artwork.images?.hover || ""}">
+                    </label>
+
+
+                    <label>
+                        PayPal habilitado
+
+                        <input
+                            id="edit-paypal-enabled"
+                            type="checkbox"
+                            ${
+                                artwork.paypal?.enabled
+                                    ? "checked"
+                                    : ""
+                            }>
+                    </label>
+
+
+                    <label>
+                        PayPal Hosted Button ID
+
+                        <input
+                            id="edit-paypal-button-id"
+                            type="text"
+                            value="${artwork.paypal?.hostedButtonId || ""}">
                     </label>
 
                 </div>
@@ -372,7 +631,7 @@ class ArtworkEngine {
 
         document
             .getElementById("saveArtwork")
-            .addEventListener("click", () => {
+            .addEventListener("click", async () => {
 
 
                 artwork.title =
@@ -443,34 +702,160 @@ class ArtworkEngine {
                     );
 
 
-                artwork.available =
+                artwork.status =
                     document
                         .getElementById(
-                            "edit-available"
+                            "edit-status"
+                        )
+                        .value;
+
+
+                if (!artwork.images) {
+
+                    artwork.images = {};
+
+                }
+
+
+                artwork.images.main =
+                    document
+                        .getElementById(
+                            "edit-image-main"
+                        )
+                        .value;
+
+
+                artwork.images.hover =
+                    document
+                        .getElementById(
+                            "edit-image-hover"
+                        )
+                        .value;
+
+
+                if (!artwork.paypal) {
+
+                    artwork.paypal = {};
+
+                }
+
+
+                artwork.paypal.enabled =
+                    document
+                        .getElementById(
+                            "edit-paypal-enabled"
                         )
                         .checked;
 
 
-                /*
-                 * Guardamos TODO el catálogo
-                 * en localStorage.
-                 */
+                artwork.paypal.hostedButtonId =
+                    document
+                        .getElementById(
+                            "edit-paypal-button-id"
+                        )
+                        .value;
+                                if (isNew) {
 
-                Storage.save(
-                    "artworks",
-                    catalogArtworks
-                );
+                    catalogArtworks.push(
+                        artwork
+                    );
+
+                }
+
+                const auth =
+                    this.core.getEngine(
+                        "Authentication"
+                    );
 
 
-                console.log(
-                    "🎨 Catálogo guardado:",
-                    catalogArtworks
-                );
+                const token =
+                    auth.getAdminToken();
 
 
-                alert(
-                    "Cambios guardados correctamente."
-                );
+                if (!token) {
+
+                    alert(
+                        "La sesión administrativa ha caducado."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "https://vanc-api.a26kiss.workers.dev/artworks",
+                            {
+
+                                method: "PUT",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Authorization":
+                                        "Bearer " + token
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        catalogArtworks
+                                    )
+
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        console.error(
+                            "Error API:",
+                            result
+                        );
+
+                        alert(
+                            "No se pudieron guardar los cambios."
+                        );
+
+                        return;
+
+                    }
+
+
+                    console.log(
+                        "🎨 Catálogo guardado en VANC API:",
+                        result
+                    );
+
+
+                    alert(
+                        "Cambios guardados correctamente."
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Error de conexión:",
+                        error
+                    );
+
+                    alert(
+                        "Error de conexión con VANC API."
+                    );
+
+                    return;
+
+                }
 
 
                 this.openCatalog();

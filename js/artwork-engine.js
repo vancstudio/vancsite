@@ -1,90 +1,175 @@
-function getParameter(name){
+function getParameter(name) {
 
-    const params = new URLSearchParams(window.location.search);
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
     return params.get(name);
 
 }
 
-function loadArtwork(){
 
-    const mode = getParameter("mode") || "catalog";
+function loadArtwork() {
 
-    const id = getParameter("id");
+    const mode =
+        getParameter("mode") || "catalog";
 
-    if(!id) return;
+    const id =
+        getParameter("id");
 
-    const artwork = getArtworkById(id);
+    if (!id) return;
 
-    if(!artwork) return;
 
-    document.title = "Van© — " + artwork.title;
+    const artwork =
+        getArtworkById(id);
 
-    document.getElementById("artwork-title").textContent =
+    if (!artwork) return;
+
+
+    document.title =
+        "Van© — " + artwork.title;
+
+
+    document.getElementById(
+        "artwork-title"
+    ).textContent =
         artwork.title;
 
-    document.getElementById("artwork-price").textContent =
+
+    document.getElementById(
+        "artwork-price"
+    ).textContent =
         artwork.price + " €";
 
-    document.getElementById("artwork-image").style.backgroundImage =
-        `url('${artwork.thumbnail}')`;
 
-    document.getElementById("artwork-technique").textContent =
+    document.getElementById(
+        "artwork-image"
+    ).style.backgroundImage =
+        `url('${artwork.images.main}')`;
+
+
+    document.getElementById(
+        "artwork-technique"
+    ).textContent =
         artwork.technique;
 
-    document.getElementById("artwork-collection").textContent =
+
+    document.getElementById(
+        "artwork-collection"
+    ).textContent =
         artwork.collection;
 
-    document.getElementById("artwork-year").textContent =
+
+    document.getElementById(
+        "artwork-year"
+    ).textContent =
         artwork.year;
 
-    document.getElementById("artwork-dimensions").textContent =
+
+    document.getElementById(
+        "artwork-dimensions"
+    ).textContent =
         artwork.dimensions;
 
-    document.getElementById("artwork-edition").textContent =
+
+    document.getElementById(
+        "artwork-edition"
+    ).textContent =
         artwork.edition;
 
-    document.getElementById("artwork-description").textContent =
+
+    document.getElementById(
+        "artwork-description"
+    ).textContent =
         artwork.description;
 
-     const action = document.getElementById("artwork-action");
+
+    const action =
+        document.getElementById(
+            "artwork-action"
+        );
 
 
+    const paypalWrapper =
+        document.querySelector(
+            ".paypal-wrapper"
+        );
 
-if (mode === "gallery") {
 
-    if (artwork.available) {
+    if (mode === "gallery") {
 
-        action.innerHTML = `
-            <a href="artwork.html?id=${artwork.id}&mode=catalog">
-                Ver disponibilidad en el Catálogo →
-            </a>
-        `;
 
-        document.querySelector(".paypal-wrapper").style.display = "none";
+        if (
+            artwork.status ===
+            "available"
+        ) {
+
+            action.innerHTML = `
+                <a href="artwork.html?id=${artwork.id}&mode=catalog">
+                    Ver disponibilidad en el Catálogo →
+                </a>
+            `;
+
+        } else {
+
+            action.innerHTML = `
+                <p>
+                    Esta obra no está disponible actualmente.
+                </p>
+            `;
+
+        }
+
+
+        paypalWrapper.style.display =
+            "none";
+
 
     } else {
 
-        action.innerHTML = `
-            <p>Esta obra no está disponible actualmente.</p>
-        `;
 
-        document.querySelector(".paypal-wrapper").style.display = "none";
+        action.innerHTML = "";
+
+
+        if (
+            artwork.status === "available" &&
+            artwork.paypal &&
+            artwork.paypal.enabled &&
+            artwork.paypal.hostedButtonId
+        ) {
+
+            paypalWrapper.style.display =
+                "block";
+
+
+            paypal.HostedButtons({
+
+                hostedButtonId:
+                    artwork.paypal.hostedButtonId
+
+            }).render(
+                "#paypal-container"
+            );
+
+
+        } else {
+
+            paypalWrapper.style.display =
+                "none";
+
+            action.innerHTML = `
+                <p>
+                    Esta obra no está disponible actualmente.
+                </p>
+            `;
+
+        }
 
     }
 
-} else {
-
-    action.innerHTML = "";
-
-    paypal.HostedButtons({
-
-        hostedButtonId: artwork.paypalHostedButtonId
-
-    }).render("#paypal-container");
-
 }
 
-}
 
-window.onload = loadArtwork;
+window.onload =
+    loadArtwork;

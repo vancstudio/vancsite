@@ -238,7 +238,10 @@ class CatalogEditorEngine {
                 <h2>
                     ${artwork.title}
                 </h2>
-
+<p>
+    <strong>ID VANC:</strong>
+    ${this.escape(artwork.id)}
+</p>
 
                 <label>
                     Título
@@ -332,22 +335,82 @@ class CatalogEditorEngine {
                     artwork.description
                 )}</textarea>
 
+                <h3>
+                    Imágenes
+                </h3>
 
                 <label>
-
-                    <input
-                        data-field="available"
-                        type="checkbox"
-                        ${
-                            artwork.available
-                            ? "checked"
-                            : ""
-                        }
-                    >
-
-                    Disponible
-
+                    Imagen principal
                 </label>
+
+                <input
+                    data-field="image-main"
+                    value="${this.escape(
+                        artwork.images?.main || ""
+                    )}"
+                >
+
+                <label>
+                    Imagen hover
+                </label>
+
+                <input
+                    data-field="image-hover"
+                    value="${this.escape(
+                        artwork.images?.hover || ""
+                    )}"
+                >
+                <label>
+    Estado
+</label>
+
+<select data-field="status">
+
+    <option
+        value="available"
+        ${
+            artwork.status === "available"
+            ? "selected"
+            : ""
+        }
+    >
+        Disponible
+    </option>
+
+    <option
+        value="reserved"
+        ${
+            artwork.status === "reserved"
+            ? "selected"
+            : ""
+        }
+    >
+        Reservada
+    </option>
+
+    <option
+        value="sold"
+        ${
+            artwork.status === "sold"
+            ? "selected"
+            : ""
+        }
+    >
+        Vendida
+    </option>
+
+    <option
+        value="archived"
+        ${
+            artwork.status === "archived"
+            ? "selected"
+            : ""
+        }
+    >
+        Archivada
+    </option>
+
+</select>
 
 
                 <button
@@ -517,15 +580,39 @@ class CatalogEditorEngine {
                 .value;
 
 
-        artwork.available =
+        if (!artwork.images) {
+
+            artwork.images = {};
+
+        }
+
+
+        artwork.images.main =
             item
                 .querySelector(
-                    '[data-field="available"]'
+                    '[data-field="image-main"]'
                 )
-                .checked;
+                .value;
+
+
+        artwork.images.hover =
+            item
+                .querySelector(
+                    '[data-field="image-hover"]'
+                )
+                .value;
+
+
+        artwork.status =
+            item
+                .querySelector(
+                    '[data-field="status"]'
+                )
+                .value;
 
 
         /*
+         * Enviamos TODO el catálogo.
          * Enviamos TODO el catálogo.
          */
 

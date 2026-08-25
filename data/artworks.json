@@ -1,6 +1,6 @@
 [
     {
-        "id": "print-001",
+        "id": "VANC-PRINT-0001",
         "artist": "Van©",
         "title": "Obra I — VANC",
         "description": "Print de edición abierta.",
@@ -14,9 +14,13 @@
         "status": "available",
         "price": 120,
         "currency": "EUR",
-        "thumbnail": "print1-a.jpg",
-        "hover": "print1-b.jpg",
-        "paypalHostedButtonId": "WN54RDVVYCQQU",
-        "available": true
+        "images": {
+            "main": "print1-a.jpg",
+            "hover": "print1-b.jpg"
+        },
+        "paypal": {
+            "enabled": true,
+            "hostedButtonId": "WN54RDVVYCQQU"
+        }
     }
 ]
