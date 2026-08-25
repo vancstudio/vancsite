@@ -1,7 +1,7 @@
 [
     {
         "id": "VANC-1787623178179",
-        "title": "Obra 26 — VANC TEST",
+        "title": "Obra 26 — VANC ",
         "description": "Primera prueba del Catalogo.",
         "technique": "Oleo sobre tela ",
         "collection": "colec1",
@@ -17,6 +17,7 @@
         "paypal": {
             "enabled": false,
             "hostedButtonId": ""
-        }
+        },
+        "available": false
     }
 ]
