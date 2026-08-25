@@ -33,7 +33,7 @@
         "status": "available",
         "images": {
             "main": "img/colec1/obra-02.jpeg",
-            "hover": ""
+            "hover": "img/colec1/obra-03.jpeg"
         },
         "paypal": {
             "enabled": false,
