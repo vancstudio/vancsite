@@ -39,5 +39,25 @@
             "enabled": true,
             "hostedButtonId": ""
         }
+    },
+    {
+        "id": "VANC-1787693382770",
+        "title": "Prueba 4",
+        "description": "",
+        "technique": "",
+        "collection": "",
+        "year": 2026,
+        "dimensions": "",
+        "edition": "",
+        "price": 0,
+        "status": "available",
+        "images": {
+            "main": "img/colec1/obra-04.jpeg",
+            "hover": ""
+        },
+        "paypal": {
+            "enabled": false,
+            "hostedButtonId": ""
+        }
     }
 ]
