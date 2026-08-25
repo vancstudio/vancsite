@@ -29,14 +29,14 @@
         "year": 2026,
         "dimensions": "",
         "edition": "",
-        "price": 0,
+        "price": 789,
         "status": "available",
         "images": {
             "main": "img/colec1/obra-02.jpeg",
             "hover": "img/colec1/obra-03.jpeg"
         },
         "paypal": {
-            "enabled": false,
+            "enabled": true,
             "hostedButtonId": ""
         }
     }
