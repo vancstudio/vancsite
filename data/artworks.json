@@ -1,26 +1,43 @@
 [
     {
-        "id": "VANC-PRINT-0001",
-        "artist": "Van©",
-        "title": "Obra I — VANC",
-        "description": "Print de edición abierta.",
-        "category": "prints",
-        "technique": "Fine Art Print",
-        "collection": "Open Edition",
+        "id": "VANC-1787623178179",
+        "title": "Obra 26 — VANC ",
+        "description": "Primera prueba del Catalogo.",
+        "technique": "Oleo sobre tela ",
+        "collection": "colec1",
         "year": 2026,
         "dimensions": "50 × 70 cm",
-        "edition": "Edición abierta",
-        "certificate": true,
+        "edition": "cerrada",
+        "price": 1200,
         "status": "available",
-        "price": 120,
-        "currency": "EUR",
         "images": {
-            "main": "print1-a.jpg",
-            "hover": "print1-b.jpg"
+            "main": "img/colec1/obra-01.jpeg",
+            "hover": ""
         },
         "paypal": {
-            "enabled": true,
-            "hostedButtonId": "WN54RDVVYCQQU"
+            "enabled": false,
+            "hostedButtonId": ""
+        },
+        "available": false
+    },
+    {
+        "id": "VANC-1787674033261",
+        "title": "PRUEBA 02",
+        "description": "",
+        "technique": "",
+        "collection": "",
+        "year": 2026,
+        "dimensions": "",
+        "edition": "",
+        "price": 0,
+        "status": "available",
+        "images": {
+            "main": "img/colec1/obra-02.jpeg",
+            "hover": "img/colec1/obra-03.jpeg"
+        },
+        "paypal": {
+            "enabled": false,
+            "hostedButtonId": ""
         }
     }
 ]
