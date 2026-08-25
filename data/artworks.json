@@ -19,5 +19,25 @@
             "hostedButtonId": ""
         },
         "available": false
+    },
+    {
+        "id": "VANC-1787674033261",
+        "title": "PRUEBA 02",
+        "description": "",
+        "technique": "",
+        "collection": "",
+        "year": 2026,
+        "dimensions": "",
+        "edition": "",
+        "price": 0,
+        "status": "available",
+        "images": {
+            "main": "",
+            "hover": ""
+        },
+        "paypal": {
+            "enabled": false,
+            "hostedButtonId": ""
+        }
     }
 ]
