@@ -558,24 +558,62 @@ class ArtworkEngine {
                     </label>
 
 
-                    <label>
-                        Imagen principal
+                  <label>
+    Imagen principal
 
-                        <input
-                            id="edit-image-main"
-                            type="text"
-                            value="${artwork.images?.main || ""}">
-                    </label>
+    <div class="image-selector">
+
+        <img
+            id="preview-image-main"
+            class="image-selector-preview"
+            src="${artwork.images?.main || ""}"
+            ${artwork.images?.main ? "" : 'style="display:none;"'}
+        >
+
+        <button
+            type="button"
+            id="choose-image-main">
+            Elegir del banco
+        </button>
+
+        <input
+            id="edit-image-main"
+            type="text"
+            value="${artwork.images?.main || ""}"
+            readonly>
+
+    </div>
+
+</label>
 
 
-                    <label>
-                        Imagen hover
+<label>
+    Imagen hover
 
-                        <input
-                            id="edit-image-hover"
-                            type="text"
-                            value="${artwork.images?.hover || ""}">
-                    </label>
+    <div class="image-selector">
+
+        <img
+            id="preview-image-hover"
+            class="image-selector-preview"
+            src="${artwork.images?.hover || ""}"
+            ${artwork.images?.hover ? "" : 'style="display:none;"'}
+        >
+
+        <button
+            type="button"
+            id="choose-image-hover">
+            Elegir del banco
+        </button>
+
+        <input
+            id="edit-image-hover"
+            type="text"
+            value="${artwork.images?.hover || ""}"
+            readonly>
+
+    </div>
+
+</label>
 
 
                     <label>
@@ -624,10 +662,172 @@ class ArtworkEngine {
 
         `;
 
-
         /*
-         * GUARDAR
+         * BANCO DE IMÁGENES
          */
+
+        const openImageBank = async (target) => {
+
+            const bank =
+                await this.loadImageBank();
+
+            const overlay =
+                document.createElement("div");
+
+            overlay.className =
+                "image-bank-overlay";
+
+            overlay.innerHTML = `
+
+                <div class="image-bank">
+
+                    <div class="image-bank-header">
+
+                        <h2>
+                            Banco de imágenes
+                        </h2>
+
+                        <button
+                            type="button"
+                            class="image-bank-close">
+                            ×
+                        </button>
+
+                    </div>
+
+                    <div class="image-bank-content">
+
+                        ${Object.entries(bank)
+                            .map(([collection, images]) => `
+
+                                <section
+                                    class="image-bank-collection">
+
+                                    <h3>
+                                        ${collection}
+                                    </h3>
+
+                                    <div
+                                        class="image-bank-grid">
+
+                                        ${images
+                                            .map(image => `
+
+                                                <button
+                                                    type="button"
+                                                    class="image-bank-item"
+                                                    data-image="${image}">
+
+                                                    <img
+                                                        src="${image}"
+                                                        alt="${image}">
+
+                                                </button>
+
+                                            `)
+                                            .join("")}
+
+                                    </div>
+
+                                </section>
+
+                            `)
+                            .join("")}
+
+                    </div>
+
+                </div>
+
+            `;
+
+            document.body.appendChild(
+                overlay
+            );
+
+
+            overlay
+                .querySelector(".image-bank-close")
+                .addEventListener(
+                    "click",
+                    () => overlay.remove()
+                );
+
+
+            overlay
+                .querySelectorAll(
+                    ".image-bank-item"
+                )
+                .forEach(item => {
+
+                    item.addEventListener(
+                        "click",
+                        () => {
+
+                            const image =
+                                item.dataset.image;
+
+                            const input =
+                                document.getElementById(
+                                    target
+                                );
+
+                            input.value =
+                                image;
+
+
+                            const previewId =
+                                target === "edit-image-main"
+                                    ? "preview-image-main"
+                                    : "preview-image-hover";
+
+                            const preview =
+                                document.getElementById(
+                                    previewId
+                                );
+
+                            preview.src =
+                                image;
+
+                            preview.style.display =
+                                "block";
+
+
+                            overlay.remove();
+
+                        }
+                    );
+
+                });
+
+        };
+
+
+        document
+            .getElementById("choose-image-main")
+            .addEventListener(
+                "click",
+                () => {
+
+                    openImageBank(
+                        "edit-image-main"
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById("choose-image-hover")
+            .addEventListener(
+                "click",
+                () => {
+
+                    openImageBank(
+                        "edit-image-hover"
+                    );
+
+                }
+            );
 
         document
             .getElementById("saveArtwork")
@@ -877,4 +1077,22 @@ class ArtworkEngine {
 
     }
 
+    async loadImageBank() {
+
+        const response =
+            await fetch(
+                "data/image-bank.json"
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "No se pudo cargar el banco de imágenes"
+            );
+
+        }
+
+        return await response.json();
+
+    }
 }

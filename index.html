@@ -577,8 +577,125 @@ body {
     gap: 6px;
     min-width: 0;
 }
-
 .artwork-editor input,
+.artwork-editor textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font: inherit;
+}
+
+.artwork-editor textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* ==========================
+   BANCO DE IM├üGENES
+========================== */
+
+.image-bank-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.image-bank {
+    width: min(1100px, 95vw);
+    max-height: 90vh;
+
+    background: #fff;
+    color: #111;
+
+    border-radius: 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.image-bank-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 22px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.image-bank-header h2 {
+    margin: 0;
+}
+
+.image-bank-close {
+    margin: 0 !important;
+    padding: 8px 14px !important;
+
+    font-size: 18px !important;
+    cursor: pointer;
+}
+
+.image-bank-content {
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.image-bank-collection {
+    margin-bottom: 30px;
+}
+
+.image-bank-collection h3 {
+    margin: 0 0 12px;
+}
+
+.image-bank-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(140px, 1fr));
+
+    gap: 12px;
+}
+
+.image-bank-item {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 2px solid transparent;
+    border-radius: 8px;
+
+    background: #f2f2f2;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.image-bank-item:hover {
+    border-color: #111;
+}
+
+.image-bank-item img {
+    display: block;
+
+    width: 100%;
+    height: 140px;
+
+    object-fit: cover;
+}
 .artwork-editor textarea {
     width: 100%;
     max-width: 100%;
