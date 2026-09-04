@@ -62,7 +62,7 @@
     },
     {
         "id": "VANC-1788551045688",
-        "title": "",
+        "title": "Cascada",
         "description": "",
         "technique": "",
         "collection": "",
@@ -76,7 +76,7 @@
             "hover": "img/colec1/obra-04.jpeg"
         },
         "paypal": {
-            "enabled": false,
+            "enabled": true,
             "hostedButtonId": ""
         }
     },
