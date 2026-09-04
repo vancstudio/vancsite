@@ -59,5 +59,25 @@
             "enabled": false,
             "hostedButtonId": ""
         }
+    },
+    {
+        "id": "VANC-1788551045688",
+        "title": "",
+        "description": "",
+        "technique": "",
+        "collection": "",
+        "year": 2026,
+        "dimensions": "",
+        "edition": "",
+        "price": 0,
+        "status": "available",
+        "images": {
+            "main": "",
+            "hover": "img/colec1/obra-04.jpeg"
+        },
+        "paypal": {
+            "enabled": false,
+            "hostedButtonId": ""
+        }
     }
 ]
