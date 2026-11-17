@@ -1,23 +1,22 @@
+
 class ShowcaseEngine {
 
     constructor() {
-
         this.name = "Showcase";
-        this.version = "1.0.0";
+        this.version = "1.1.0";
         this.status = "OFFLINE";
-
+        this.showTimer = null;
     }
 
-
-
     init() {
-
         this.status = "ONLINE";
 
         console.log("🎬 Showcase Engine ONLINE");
 
-        this.show();
-
+        // Esperar 30 segundos desde la inicialización.
+        this.showTimer = window.setTimeout(() => {
+            this.show();
+        }, 3000);
     }
 
     show() {
@@ -38,52 +37,77 @@ class ShowcaseEngine {
             return;
         }
 
-       console.log("🎲 Escaparate:", item);
+        console.log("🎲 Escaparate:", item);
 
-const showcase = document.createElement("div");
+        const showcase = document.createElement("div");
+        showcase.id = "showcase";
 
-showcase.id = "showcase";
+        showcase.innerHTML = `
+            <div class="showcase-card">
 
-showcase.innerHTML = `
-<div class="showcase-card">
+                <h2>${item.title}</h2>
 
-    <h2>${item.title}</h2>
+                <div class="showcase-image">
+                    <img src="${item.image}" alt="${item.title}">
+                </div>
 
-    <div class="showcase-image">
-        <img src="${item.image}" alt="${item.title}">
-    </div>
+                <p>${item.text}</p>
 
-    <p>${item.text}</p>
+                <button id="enter-showcase">
+                    ${item.button}
+                </button>
 
-    <button id="enter-showcase">
-        ${item.button}
-    </button>
-
-</div>
-`;
-
+            </div>
+        `;
 
         document.body.appendChild(showcase);
 
-        document
-            .getElementById("enter-showcase")
-            .addEventListener("click", () => {
+        let closing = false;
+        let autoCloseTimer = null;
 
-                if (showcase.parentNode) {
-                    showcase.remove();
-                }
+        // Cierre gradual, tanto automático como manual.
+        const closeShowcase = () => {
 
-            });
+            if (closing) return;
 
-        // Cierre automático a los 5 segundos
-        setTimeout(() => {
+            closing = true;
 
-            if (showcase.parentNode) {
-                showcase.remove();
+            if (autoCloseTimer !== null) {
+                window.clearTimeout(autoCloseTimer);
             }
 
-        }, 5000);
+            showcase.classList.remove("visible");
 
+            window.setTimeout(() => {
+                showcase.remove();
+            }, 700);
+        };
+
+        // Mantener el botón de cierre original.
+        showcase
+            .querySelector("#enter-showcase")
+            .addEventListener("click", closeShowcase);
+
+        // Asegurar que el navegador registre el estado inicial
+        // antes de activar la transición de entrada.
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+
+                showcase.classList.add("visible");
+
+                // Esperar a que termine la entrada.
+                window.setTimeout(() => {
+
+                    if (closing) return;
+
+                    // Permanecer visible durante 3 segundos.
+                    autoCloseTimer = window.setTimeout(
+                        closeShowcase,
+                        3000
+                    );
+
+                }, 700);
+            });
+        });
     }
-
 }
